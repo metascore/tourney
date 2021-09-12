@@ -7,7 +7,7 @@
     "serve": "vite preview"
   },
   "dependencies": {
-    "@metascore/query-staging": "^0.0.12",
+    "@metascore/query-staging": "^0.0.14",
     "react": "^17.0.0",
     "react-dom": "^17.0.0"
   },
