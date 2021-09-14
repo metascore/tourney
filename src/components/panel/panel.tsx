@@ -3,11 +3,17 @@ import Styles from './panel.module.css';
 
 interface Props {
     children?: React.ReactNode;
+    row?: boolean;
+    size?: 'sm';
 };
 
-export default function Panel ({ children } : Props) {
+export default function Panel ({ children, row, size } : Props) {
     return (
-        <div className={Styles.root}>
+        <div className={[
+            Styles.root,
+            row ? Styles.row : '',
+            size ? size : '',
+        ].join(' ')}>
             {children}
         </div>
     );

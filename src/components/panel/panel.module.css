@@ -10,8 +10,20 @@
     border-radius: 2px;
 }
 
+.root.row {
+    flex-direction: row;
+    align-items: center;
+    gap: 30px;
+    padding: 8px 20px;
+}
+
+.root.sm {
+    
+}
+
 .label {
     font-size: 12px;
     text-transform: uppercase;
     letter-spacing: 5%;
+    flex-shrink: 0;
 }
