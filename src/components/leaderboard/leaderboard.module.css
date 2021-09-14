@@ -1,0 +1,45 @@
+.root {
+    display: table;
+    align-items: center;
+}
+
+.head {}
+
+.head .cell {
+    font-size: 12px;
+}
+
+.body {}
+
+.row {
+    padding: 10px 20px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-gap: 20px;
+    border-bottom: 1px solid var(--colour-chrome-1);
+    align-items: center;
+}
+
+.cell.position {
+    grid-column: 1;
+    text-align: left;
+}
+.cell.name {
+    grid-column: 2/6;
+}
+.cell.score {
+    grid-column: 7/10;
+}
+.cell.gamesPlayed {
+    grid-column: 11;
+}
+.cell.podiumFinishes {
+    grid-column: 12;
+}
+
+.cell {
+    font-size: 18px;
+    grid-row: 1;
+    align-items: center;
+    text-align: center;
+}
