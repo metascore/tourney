@@ -1,5 +1,4 @@
 import React from 'react';
-import { createActor, Metadata } from "@metascore/query-staging";
 import Container from 'components/container/container';
 import Head from 'components/head/head';
 import Grid, { GridRow } from 'components/grid/grid';
@@ -8,12 +7,10 @@ import CountdownPanel from 'components/countdown-panel/countdown-panel';
 import ScorePanel from 'components/score-panel/score-panel';
 import RankPanel from 'components/rank-panel/rank-panel';
 import NextRankPanel from 'components/next-rank-panel/next-rank-panel';
+import GamesPanel from 'components/games-panel/games-panel';
+import LeaderboardPanel from 'components/leaderboard-panel/leaderboard-panel';
 
 export default function Index() {
-
-    const metascore = React.useMemo(() => createActor(), []);
-    const [games, setGames] = React.useState<Metadata[]>([]);
-    React.useEffect(() => { metascore.getGames().then(setGames).catch(console.error) }, []);
 
     return (
         <Container>
@@ -28,12 +25,8 @@ export default function Index() {
                     <NextRankPanel />
                 </GridRow>
                 <GridRow>
-                    <Panel>
-                        <h1>Games</h1>
-                        <ul>
-                            {games?.map(game => <li>{game.name}</li>)}
-                        </ul>
-                    </Panel>
+                    <GamesPanel />
+                    <LeaderboardPanel />
                 </GridRow>
             </Grid>
         </Container>

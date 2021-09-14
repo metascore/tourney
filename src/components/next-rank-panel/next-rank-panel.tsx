@@ -8,8 +8,10 @@ interface Props {
 
 export default function NextRankPanel ({ children } : Props) {
     return (
-        <Panel>
-            <Label>Next Rank</Label>
-        </Panel>
+        <div className={Styles.root}>
+            <Panel>
+                <Label>Next Rank</Label>
+            </Panel>
+        </div>
     );
 };

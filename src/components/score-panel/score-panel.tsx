@@ -8,8 +8,10 @@ interface Props {
 
 export default function ScorePanel ({ children } : Props) {
     return (
-        <Panel>
-            <Label>Your Score</Label>
-        </Panel>
+        <div className={Styles.root}>
+            <Panel>
+                <Label>Your Score</Label>
+            </Panel>
+        </div>
     );
 };

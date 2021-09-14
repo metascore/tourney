@@ -17,17 +17,19 @@ export default function CountdownPanel ({ children } : Props) {
         return () => clearInterval(iter)
     }, []);
     return (
-        <Panel>
-            <Label>
-                <div className={Styles.label}>
-                    <div>Tournament Begins</div>
-                    <div>Midnight, Sept 21</div>
+        <div className={Styles.root}>
+            <Panel>
+                <Label>
+                    <div className={Styles.label}>
+                        <div>Tournament Begins</div>
+                        <div>Midnight, Sept 21</div>
+                    </div>
+                </Label>
+                <div className={Styles.countdown}>
+                    {countdownFormat(countdown)}
                 </div>
-            </Label>
-            <div className={Styles.countdown}>
-                {countdownFormat(countdown)}
-            </div>
-        </Panel>
+            </Panel>
+        </div>
     );
 };
 

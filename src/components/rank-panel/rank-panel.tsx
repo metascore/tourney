@@ -8,8 +8,10 @@ interface Props {
 
 export default function RankPanel ({ children } : Props) {
     return (
-        <Panel>
-            <Label>Your Rank</Label>
-        </Panel>
+        <div className={Styles.root}>
+            <Panel>
+                <Label>Your Rank</Label>
+            </Panel>
+        </div>
     );
 };
