@@ -1,0 +1,26 @@
+.root {
+    display: flex;
+    column-gap: 30px;
+    row-gap: 10px;
+    align-items: center;
+    flex-wrap: wrap;
+    font-size: 12px;
+}
+
+.sponsor {
+    display: flex;
+}
+
+.image {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+
+.link {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    text-decoration: none;
+    color: var(--colour-chrome-6);
+}
