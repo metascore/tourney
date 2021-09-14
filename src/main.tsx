@@ -2,6 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 
 import "@fontsource/inter";
+import "@fontsource/space-mono";
 import "@fontsource/vt323";
 import './index.css'
 import App from './App'

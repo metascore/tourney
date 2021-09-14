@@ -1,0 +1,16 @@
+.root {
+    padding: 30px;
+
+    display: flex;
+    gap: 10px;
+    flex-direction: column;
+
+    border: 1px solid var(--colour-chrome-1);
+    border-radius: 2px;
+}
+
+.label {
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 5%;
+}

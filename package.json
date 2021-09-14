@@ -8,6 +8,7 @@
   },
   "dependencies": {
     "@fontsource/inter": "^4.5.0",
+    "@fontsource/space-mono": "^4.5.0",
     "@fontsource/vt323": "^4.5.0",
     "@metascore/query-staging": "^0.0.14",
     "framer-motion": "^4.1.17",

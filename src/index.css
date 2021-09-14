@@ -20,6 +20,7 @@
   --fontstack-fallback: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
   --font-stack: Inter, var(--fontstack-fallback);
   --font-stack-alt: VT323, var(--fontstack-fallback);
+  --font-stack-mono: 'Space Mono', var(--fontstack-fallback);
 
   /* Other */
   --ease-sine: cubic-bezier(0.445, 0.050, 0.550, 0.950);

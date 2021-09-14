@@ -1,0 +1,14 @@
+.root {}
+
+.label {
+    display: flex;
+    gap: 30px;
+    justify-content: space-between;
+}
+
+.countdown {
+    font-family: var(--font-stack-mono);
+    font-size: 48px;
+    letter-spacing: -5%;
+    line-height: 100%;
+}
