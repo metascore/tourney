@@ -19,8 +19,12 @@
     "isolatedModules": false,
     "noEmit": true,
     "jsx": "react",
-  },
-  "include": [
-    "./src"
-  ]
+    "baseUrl": ".",
+    "paths": {
+      "components/*" : ["src/components/*"],
+      "constants/*" : ["src/constants/*"],
+      "context/*" : ["src/context/*"],
+      "screens/*" : ["src/screens/*"],
+    }
+  }
 }

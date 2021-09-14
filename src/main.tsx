@@ -1,5 +1,8 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
+
+import "@fontsource/inter";
+import "@fontsource/vt323";
 import './index.css'
 import App from './App'
 
