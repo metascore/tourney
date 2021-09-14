@@ -10,7 +10,8 @@ export default function ScorePanel ({ children } : Props) {
     return (
         <div className={Styles.root}>
             <Panel>
-                <Label>Your Score</Label>
+                <Label>Your Metascore</Label>
+                <div className={Styles.zero}>Zero</div>
             </Panel>
         </div>
     );

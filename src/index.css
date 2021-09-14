@@ -18,7 +18,7 @@
 
   /* Typography */
   --fontstack-fallback: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
-  --font-stack: Inter, var(--fontstack-fallback);
+  --font-stack: InterVariable, var(--fontstack-fallback);
   --font-stack-alt: VT323, var(--fontstack-fallback);
   --font-stack-mono: 'Space Mono', var(--fontstack-fallback);
 
@@ -42,4 +42,15 @@ body {
   font-family: var(--font-stack);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4 {
+  margin: 0;
+  line-height: 125%;
+}
+
+h4 {
+  font-size: 18px;
+  font-weight: bolder;
+  text-transform: uppercase;
 }

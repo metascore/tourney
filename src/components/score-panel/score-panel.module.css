@@ -1,5 +1,13 @@
 .root {
-    flex: 1;
+    /* flex: 1; */
     display: flex;
     flex-direction: column;
+    min-width: 250px;
 }
+
+.zero {
+    font-size: 48px;
+    font-weight: 600;
+    line-height: 100%;
+}
+

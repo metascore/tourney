@@ -11,6 +11,11 @@ export default function RankPanel ({ children } : Props) {
         <div className={Styles.root}>
             <Panel>
                 <Label>Your Rank</Label>
+                <h4>Not<br/>Ranked</h4>
+
+                <div className={Styles.badgeContainer}>
+                    <div className={Styles.badgeUnranked}></div>
+                </div>
             </Panel>
         </div>
     );

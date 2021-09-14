@@ -2,6 +2,8 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 
 import "@fontsource/inter";
+import "@fontsource/inter/400.css";
+import "@fontsource/inter/variable-full.css";
 import "@fontsource/space-mono";
 import "@fontsource/vt323";
 import './index.css'

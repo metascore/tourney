@@ -1,5 +1,36 @@
 .root {
-    flex: 1;
+    position: relative;
+    overflow: hidden;
+
+    /* flex: 1; */
     display: flex;
     flex-direction: column;
+    min-width: 250px;
+}
+
+.root > * { /* Selector should capture panel */
+    padding-right: 120px; /* Space for abs positioned badge */
+}
+
+.badgeContainer {
+    position: absolute;
+    top: 0; right: -10px; bottom: 0;
+    width: 100px;
+    align-items: center;
+    flex-direction: column;
+}
+
+.badge {}
+
+.badgeUnranked {
+    box-sizing: border-box;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50px);
+
+    width: 100px;
+    height: 100px;
+    background-color: var(--colour-chrome-1);
+    border-radius: 50%;
+    border: 1px solid var(--colour-chrome-1);
 }
