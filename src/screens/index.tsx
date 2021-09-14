@@ -10,6 +10,7 @@ import NextRankPanel from 'components/next-rank-panel/next-rank-panel';
 import GamesPanel from 'components/games-panel/games-panel';
 import LeaderboardPanel from 'components/leaderboard-panel/leaderboard-panel';
 import Sponsors from 'components/sponsors/sponsors';
+import Stats from 'components/stats/stats';
 
 export default function Index() {
 
@@ -34,6 +35,9 @@ export default function Index() {
                         <Label>Sponsors 💖</Label>
                         <Sponsors />
                     </Panel>
+                </GridRow>
+                <GridRow>
+                    <Stats />
                 </GridRow>
             </Grid>
         </Container>
