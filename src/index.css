@@ -42,6 +42,8 @@ body {
   font-family: var(--font-stack);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  overflow-y: auto;
 }
 
 h1, h2, h3, h4 {
@@ -49,8 +51,37 @@ h1, h2, h3, h4 {
   line-height: 125%;
 }
 
+h3 {
+  font-size: 18px;
+  font-weight: 600;
+}
+
 h4 {
   font-size: 18px;
   font-weight: bolder;
   text-transform: uppercase;
+}
+
+/* total width */
+*::-webkit-scrollbar {
+  background-color: transparent;
+  width: 8px;
+}
+
+/* background of the scrollbar except button or resizer */
+*::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+/* scrollbar itself */
+*::-webkit-scrollbar-thumb {
+  margin: 4px;
+  background-color: transparent;
+  border-radius: 16px;
+  border: 1px solid var(--colour-chrome-3);
+}
+
+/* set button(top and bottom of the scrollbar) */
+*::-webkit-scrollbar-button {
+  display:none;
 }

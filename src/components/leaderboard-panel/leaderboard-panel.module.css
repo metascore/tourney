@@ -3,3 +3,8 @@
     display: flex;
     flex-direction: column;
 }
+
+.root > * {
+    max-height: 56vh;
+    overflow-y: scroll;
+}

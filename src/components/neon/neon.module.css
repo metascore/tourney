@@ -1,0 +1,13 @@
+.root {
+    font-size: 52px;
+    font-weight: 900;
+    -webkit-background-clip: text;
+     -moz-background-clip: text;
+          background-clip: text;
+    color: var(--colour-chrome-5);
+    -webkit-text-stroke-width: 1px;
+    -webkit-text-stroke-color: var(--colour-chrome-5);
+    text-shadow:
+        0 0 1px var(--colour-chrome-5),
+        0 0 6px var(--colour-chrome-4);
+}

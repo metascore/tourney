@@ -1,8 +1,16 @@
+/* Lots of stuff here is copied from button styles. */
+
 .root {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.game {
     padding: 10px 15px;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
 
     border: 2px solid var(--colour-action-0);
     border-radius: 8px;
@@ -12,15 +20,21 @@
     
     cursor: pointer;
 
-    font-size: 18px;
+    font-size: 14px;
     font-weight: medium;
     text-shadow: hsla(var(--colour-action-1), 10%) 0 0 6px;
     user-select: none;
 
-    transition: all 240ms var(--ease-sine);
+    transition: all 240ms var(--ease-sine); 
 }
 
-.root:hover {
+.gameTitle {}
+
+.gameScore {
+    
+}
+
+.game:hover {
     border-color: var(--colour-active-0);
     box-shadow:
         hsla(var(--colour-active-1), 100%) 0 0 6px,
@@ -28,24 +42,6 @@
     text-shadow: hsla(var(--colour-active-1), 100%) 0 0 6px;
 }
 
-.root:active {
+.game:active {
     text-shadow: hsla(var(--colour-active-1), 100%) 0 0 12px;
-}
-
-@media (max-width: 1121px) {
-    .root {
-        padding: 8px 12px;
-    }
-}
-
-@media (max-width: 920px) {
-    .root {
-        font-size: 15px;
-    }
-}
-
-@media (max-width: 680px) {
-    .root {
-        font-size: 14px;
-    }
 }
