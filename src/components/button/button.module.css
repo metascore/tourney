@@ -1,0 +1,50 @@
+.root {
+    padding: 10px 15px;
+    display: flex;
+    align-items: center;
+
+    border: 2px solid var(--colour-action-0);
+    border-radius: 8px;
+    box-shadow:
+        hsla(var(--colour-action-1), 10%) 0 0 6px,
+        hsla(var(--colour-action-1), 10%) 0 0 6px inset;
+    
+    cursor: pointer;
+
+    font-size: 18px;
+    font-weight: medium;
+    text-shadow: hsla(var(--colour-action-1), 10%) 0 0 6px;
+    user-select: none;
+
+    transition: all 240ms var(--ease-sine);
+}
+
+.root:hover {
+    border-color: var(--colour-active-0);
+    box-shadow:
+        hsla(var(--colour-active-1), 100%) 0 0 6px,
+        hsla(var(--colour-active-1), 100%) 0 0 6px inset;
+    text-shadow: hsla(var(--colour-active-1), 100%) 0 0 6px;
+}
+
+.root:active {
+    text-shadow: hsla(var(--colour-active-1), 100%) 0 0 12px;
+}
+
+@media (max-width: 1121px) {
+    .root {
+        padding: 8px 12px;
+    }
+}
+
+@media (max-width: 920px) {
+    .root {
+        font-size: 15px;
+    }
+}
+
+@media (max-width: 680px) {
+    .root {
+        font-size: 14px;
+    }
+}

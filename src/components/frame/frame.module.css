@@ -1,0 +1,71 @@
+/* Lots of button styles need to be copied 1-1 onto the head here. */
+
+.root {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+}
+
+.container {
+    border: 2px solid var(--colour-action-0);
+    border-radius: 8px;
+    box-shadow:
+        hsla(var(--colour-action-1), 10%) 0 0 6px,
+        hsla(var(--colour-action-1), 10%) 0 0 6px inset;
+
+    transition: all 240ms var(--ease-sine);
+}
+
+.container:hover {
+    border-color: var(--colour-active-0);
+    box-shadow:
+        hsla(var(--colour-active-1), 100%) 0 0 6px,
+        hsla(var(--colour-active-1), 100%) 0 0 6px inset;
+    text-shadow: hsla(var(--colour-active-1), 100%) 0 0 6px;
+}
+
+.head {
+    padding: 10px 15px;
+
+    display: flex;
+    align-items: center;
+    
+    cursor: pointer;
+
+    font-size: 18px;
+    font-weight: medium;
+    text-shadow: hsla(var(--colour-action-1), 10%) 0 0 6px;
+    user-select: none;
+
+    border: 1px solid white;
+}
+
+.body {
+    position: absolute;
+    border: 1px solid rgba(255, 255, 255, .5);
+}
+
+@media (max-width: 1121px) {
+    .head {
+        padding: 8px 12px;
+    }
+}
+
+@media (max-width: 920px) {
+    .head {
+        font-size: 15px;
+    }
+}
+
+@media (max-width: 680px) {
+    .head {
+        font-size: 14px;
+    }
+}
+
+.body {}
+
+.rootActive .container {
+    
+}

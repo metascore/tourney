@@ -25,6 +25,7 @@
       "constants/*" : ["src/constants/*"],
       "context/*" : ["src/context/*"],
       "screens/*" : ["src/screens/*"],
+      "assets/*" : ["src/assets/*"],
     }
   }
 }

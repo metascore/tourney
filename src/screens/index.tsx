@@ -1,6 +1,7 @@
 import React from 'react';
 import { createActor, Metadata } from "@metascore/query-staging";
 import Container from 'components/container/container';
+import Head from 'components/head/head';
 
 export default function Index () {
     
@@ -10,6 +11,7 @@ export default function Index () {
 
   return (
     <Container>
+        <Head />
         <h1>Games</h1>
         <ul>
         {games?.map(game => <li>{game.name}</li>)}

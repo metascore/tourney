@@ -6,24 +6,34 @@
   /* Color */
   --colour-chrome-0: #120010;
   --colour-chrome-1: #1E121C;
-  --colour-chrome-2: #3D154B;
   --colour-chrome-3: #3F2747;
   --colour-chrome-4: #FB40FF;
   --colour-chrome-5: #FBE6FF;
-  --colour-chrome-6: #FFE4FB;
   --colour-chrome-7: #FFF;
+  
+  --colour-action-0: #3D154B;
+  --colour-action-1: 300, 100%, 77%;  /* use with hsla */
+  --colour-active-0: #FFE4FB;
+  --colour-active-1: 300, 100%, 63%;  /* use with hsla */
 
   /* Typography */
   --fontstack-fallback: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
   --font-stack: Inter, var(--fontstack-fallback);
   --font-stack-alt: VT323, var(--fontstack-fallback);
+
+  /* Other */
+  --ease-sine: cubic-bezier(0.445, 0.050, 0.550, 0.950);
 }
 
 body {
-  display: flex;
-  flex-direction: column;
+  box-sizing: border-box;
   margin: 0;
   padding: 0;
+
+  flex-direction: column;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
   background-color: var(--colour-chrome-0);
   
