@@ -6,6 +6,9 @@
     gap: 10px;
     flex-direction: column;
 
+    max-height: 56vh;
+    overflow-y: scroll;
+
     border: 1px solid var(--colour-chrome-1);
     border-radius: 2px;
 }

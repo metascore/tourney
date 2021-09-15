@@ -17,9 +17,20 @@ const Routes: {
         Component: Index,
         exact: true,
     },
+    game: {
+        path: '/game/:principal',
+        Component: Index,
+        exact: false,
+    },
 };
 
 export function AppRoutes () {
+    return <AnimatedSwitch>
+        {Object.values(Routes).map(r => <AnimatedRoute {...r} key={r.path} />)}
+    </AnimatedSwitch>;
+}
+
+export function LeaderboardRoutes () {
     return <AnimatedSwitch>
         {Object.values(Routes).map(r => <AnimatedRoute {...r} key={r.path} />)}
     </AnimatedSwitch>;

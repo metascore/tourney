@@ -85,3 +85,8 @@ h4 {
 *::-webkit-scrollbar-button {
   display:none;
 }
+
+a {
+  color: var(--colour-chrome-7);
+  text-decoration: none !important;
+}

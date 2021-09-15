@@ -6,11 +6,6 @@
     flex-direction: column;
 }
 
-.root > * {
-    max-height: 56vh;
-    overflow-y: scroll;
-}
-
 .gameHead {
     margin-top: 20px;
     border-top: 1px solid var(--colour-chrome-1);
@@ -18,4 +13,9 @@
 
     display: flex;
     justify-content: space-between;
+}
+
+.link {
+    text-decoration: none;
+    color: var(--colour-chrome-7);
 }
