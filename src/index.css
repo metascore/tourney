@@ -90,5 +90,12 @@ h4 {
 
 a {
   color: var(--colour-chrome-7);
-  text-decoration: none !important;
+  text-decoration: none;
+}
+
+a.hyperlink {
+  color: var(--colour-active-0);
+  font-weight: bold;
+  text-shadow: 0 0 6px hsl(var(--colour-active-1));
+  text-decoration: underline;
 }
