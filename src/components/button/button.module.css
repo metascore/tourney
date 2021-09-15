@@ -37,6 +37,10 @@
     color: #F3ABFF !important;
 }
 
+.root img {
+    margin-right: 10px;
+}
+
 @media (max-width: 1121px) {
     .root {
         padding: 8px 12px;

@@ -1,13 +1,19 @@
 import React from 'react';
 import { useMediaQuery } from 'react-responsive';
-import Styles from './head.module.css';
-import logo from 'assets/logo.webp'
-import Button from 'components/button/button';
 import { Link } from 'react-router-dom';
 import { usePlug } from 'context/plug';
 import { useStoic } from 'context/stoic';
+import Button from 'components/button/button';
+import Styles from './head.module.css';
+import logo from 'assets/logo.webp';
+import stoic from 'assets/stoic.png';
+import plug from 'assets/plug.png';
 
 export default function Head () {
+
+    const { isConnected : isConnectedS } = useStoic();
+    const { isConnected : isConnectedP } = usePlug();
+    const isConnected = isConnectedP || isConnectedS;
 
     return (
         <header className={Styles.root}>
@@ -28,7 +34,7 @@ export default function Head () {
                     Win <span className={Styles.extraFlavour}>NFTs</span> 💎
                 </div>
                 <div className={Styles.utilNav}>
-                    <Connect />
+                    {isConnected ? <Account /> : <Connect />}
                 </div>
             </nav>
         </header>
@@ -54,5 +60,22 @@ function Connect () {
             <Button onClick={connectS}>Connect Stoic</Button>
             <Button onClick={connectP}>Connect Plug</Button>
         </>
+    );
+};
+
+function Account () {
+    const { isConnected : isConnectedS, principal : principalS } = useStoic();
+    const { isConnected : isConnectedP, principal : principalP } = usePlug();
+    
+    const wallet = isConnectedS ? 'stoic' : isConnectedP ? 'plug' : undefined;
+    const principal = principalS?.toText() || principalP?.toText();
+
+    return (
+        <Link to='/account'>
+            <Button>
+                <img src={wallet === 'stoic' ? stoic : plug} width={22} height={22} />
+                {principal?.slice(0, 5)}...{principal?.slice(principal?.length - 3)}
+            </Button>
+        </Link>
     );
 };

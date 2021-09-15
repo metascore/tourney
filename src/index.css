@@ -54,7 +54,7 @@ h1, h2, h3, h4 {
 }
 
 h3 {
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 600;
 }
 
@@ -99,3 +99,5 @@ a.hyperlink {
   text-shadow: 0 0 6px hsl(var(--colour-active-1));
   text-decoration: underline;
 }
+
+iframe { border: none; }

@@ -9,10 +9,9 @@ import PlugProvider from 'context/plug';
 import StoicProvider from 'context/stoic';
 import React from 'react'
 import { BrowserRouter as Router, Link } from 'react-router-dom';
+import Account from 'screens/account';
 import Connect from 'screens/connect';
 import Guide from 'screens/guide';
-import Plug from 'screens/plug';
-import Stoic from 'screens/stoic';
 
 import Compose from './context/compose';
 import Index from './screens';
@@ -41,10 +40,9 @@ export default function App() {
                         </GridRow>
                     </Grid>
                     <AnimatedSwitch>
+                        <AnimatedRoute path='/account' Component={Account} />
                         <AnimatedRoute path='/guide' Component={Guide} />
                         <AnimatedRoute path='/connect' Component={Connect} />
-                        <AnimatedRoute path='/stoic' Component={Stoic} />
-                        <AnimatedRoute path='/plug' Component={Plug} />
                         <AnimatedRoute exact path={['/', '/games/:principal']} Component={Index}/>
                     </AnimatedSwitch>
                     <Grid>

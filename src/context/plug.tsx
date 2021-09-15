@@ -34,19 +34,15 @@ export default function PlugProvider({ children }: PlugProviderProps) {
             return;
         }
 
-        switch (await checkConnectionAndAgent()) {
-            case true:
-                setIsConnected(true);
-                window.ic.plug.agent.getPrincipal().then(setPrincipal);
-                return;
-            case false:
-                break;
-        }
+        await checkConnectionAndAgent();
         
         switch (await window.ic.plug.requestConnect({ whitelist, host })) {
             case true:
+                const principal = await window.ic.plug.agent.getPrincipal();
+                window.sessionStorage.setItem('plugIsConnected', 'true');
+                window.sessionStorage.setItem('plugPrincipal', principal.toText());
                 setIsConnected(true);
-                window.ic.plug.agent.getPrincipal().then(setPrincipal);
+                setPrincipal(principal);
                 break
             case false:
                 console.error('Error connecting plug...');
@@ -57,36 +53,37 @@ export default function PlugProvider({ children }: PlugProviderProps) {
     };
 
     async function disconnect () {
-        // TODO
+        setIsConnected(false);
+        setPrincipal(undefined);
+        window.ic?.plug?.deleteAgent();
+        window.sessionStorage.removeItem('plugIsConnected');
+        window.sessionStorage.removeItem('plugPrincipal');
     };
 
     async function checkConnection () {
         const connection = (window?.ic?.plug === undefined) ? false : await window.ic.plug.isConnected();
-        setIsConnected(connection);
+        // setIsConnected(connection);
         return connection;
     };
 
     async function checkAgent () {
-        console.log('checkagent');
         if (window?.ic?.plug === undefined) return false; 
-        console.log(window.ic.plug.agent);
         if (!window.ic.plug.agent) {
             await window.ic.plug.createAgent({ whitelist, host })
         };
-        console.log(window.ic.plug.agent);
         return true;
     };
 
     async function checkConnectionAndAgent () {
-        if (window?.ic?.plug === undefined) return;
-        const connected = await checkConnection();
-        if (!connected) return false;
         await checkAgent();
-        window.ic.plug.agent.getPrincipal().then(setPrincipal);
-        return true;
+        return await checkConnection();
     };
 
     React.useEffect(() => {
+        const sessionIsConnected = window.sessionStorage.getItem('plugIsConnected') === 'true';
+        const sessionPrincipal = window.sessionStorage.getItem('plugPrincipal');
+        setIsConnected(sessionIsConnected);
+        setPrincipal(sessionPrincipal ? Principal.fromText(sessionPrincipal) : undefined);
         checkConnectionAndAgent()
     }, []);
 
@@ -131,6 +128,7 @@ declare global {
                     };
                 }) => Promise<{ height: number }>;
                 requestConnect: (opts: any) => Promise<boolean>;
+                deleteAgent: () => Promise<void>;
             };
         };
     }
