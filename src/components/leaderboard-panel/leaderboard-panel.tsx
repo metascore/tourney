@@ -22,6 +22,7 @@ export default function LeaderboardPanel ({ children } : Props) {
             <AnimatedSwitch>
                 <AnimatedRoute exact path="/" Component={() => <Panel>
                     <Neon>Tournament Leaderboard</Neon>
+                    <div className={Styles.flavor}>Last updated at... Next update at...</div>
                     <Leaderboard data={data} type={'overall'} />
                 </Panel>}/>
                 <AnimatedRoute path="/games/:principal" Component={GameLeaderboardPanel} />

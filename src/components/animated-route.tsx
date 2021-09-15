@@ -20,7 +20,7 @@ export function AnimatedSwitch({ exitBeforeEnter = true, initial = false, childr
 };
 
 export function AnimatedRoute({ path, exact, Component, ...rest }: RouteConf) {
-    return <Route path={path} exact={exact} {...rest} component={Component}>
+    return <Route path={path} exact={exact} {...rest}>
         <Fade>
             <Component />
         </Fade>

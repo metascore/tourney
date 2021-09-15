@@ -1,4 +1,6 @@
+import { GamePrincipal } from '@metascore/query';
 import React from 'react';
+import { useParams } from 'react-router-dom';
 import Styles from './game-list.module.css';
 
 interface Props {
@@ -14,10 +16,16 @@ export default function GameList ({ children } : Props) {
 interface GameProps {
     title: string;
     score: string;
+    gamep: GamePrincipal;
 }
 
-export function Game ({ title, score } : GameProps) {
-    return <div className={Styles.game}>
+export function Game ({ title, score, gamep, } : GameProps) {
+    const { principal } = useParams<{principal?: string}>();
+    const active = principal === gamep.toString() ? Styles.active : 'inactive';
+    return <div className={[
+        Styles.game,
+        active,
+    ].join(' ')}>
         <div className={Styles.gameTitle}>{title}</div>
         <div className={Styles.gameScore}>{score}</div>
     </div>

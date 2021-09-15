@@ -10,7 +10,7 @@
     "@fontsource/inter": "^4.5.0",
     "@fontsource/space-mono": "^4.5.0",
     "@fontsource/vt323": "^4.5.0",
-    "@metascore/query": "^0.0.3",
+    "@metascore/query": "^0.0.4",
     "framer-motion": "^4.1.17",
     "react": "^17.0.0",
     "react-dom": "^17.0.0",

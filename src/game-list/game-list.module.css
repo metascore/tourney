@@ -28,6 +28,11 @@
     transition: all 240ms var(--ease-sine); 
 }
 
+.game.active {
+    font-weight: bold !important;
+    color: #F3ABFF !important;
+}
+
 .gameTitle {}
 
 .gameScore {

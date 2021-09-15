@@ -9,6 +9,10 @@
     font-size: 12px;
 }
 
+.head .cell.score {
+    font-family: var(--font-stack);
+}
+
 .body {}
 
 .row {
@@ -28,6 +32,8 @@
     grid-column: 2/6;
 }
 .cell.score {
+    text-align: right;
+    font-family: var(--font-stack-mono);
     grid-column: 7/10;
 }
 .cell.gamesPlayed {
@@ -35,6 +41,13 @@
 }
 .cell.podiumFinishes {
     grid-column: 12;
+}
+
+.root.game .cell.name {
+    grid-column: 2/9;
+}
+.root.game .cell.score {
+    grid-column: 10/13;
 }
 
 .cell {
