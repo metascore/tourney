@@ -19,7 +19,7 @@ export default function GamesPanel ({ children } : Props) {
             <Panel>
                 <Link to="/"><Button>Tournament Leaderboard</Button></Link>
                 <div className={Styles.gameHead}>
-                    <h3>Games ({games.length})</h3>
+                    <h3>Ranked Games ({games.length})</h3>
                     <Label>Your Points</Label>
                 </div>
                 <GameList>
@@ -27,6 +27,9 @@ export default function GamesPanel ({ children } : Props) {
                         <Game gamep={principal} title={game.name} score={'-'}/>
                     </Link>)}
                 </GameList>
+                <div className={Styles.gameHead}>
+                    <h3>Unranked Games ({games.length})</h3>
+                </div>
             </Panel>
         </div>
     );

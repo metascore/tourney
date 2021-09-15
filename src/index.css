@@ -26,6 +26,10 @@
   --ease-sine: cubic-bezier(0.445, 0.050, 0.550, 0.950);
 }
 
+html {
+  overflow-y: scroll;
+}
+
 body {
   box-sizing: border-box;
   margin: 0;
@@ -42,8 +46,6 @@ body {
   font-family: var(--font-stack);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-
-  overflow-y: auto;
 }
 
 h1, h2, h3, h4 {

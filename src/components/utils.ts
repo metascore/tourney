@@ -13,6 +13,5 @@ export function scoreToShortString (n : number) {
 };
 
 export function numberWithCommas (n : number) {
-    console.log(n);
     return Number(n).toString().replace(/\B(?=(\d{3})+(?!\d))/g, '_');
 }

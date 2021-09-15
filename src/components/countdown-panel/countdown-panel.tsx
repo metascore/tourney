@@ -7,7 +7,7 @@ interface Props {
 };
 
 export default function CountdownPanel ({ children } : Props) {
-    const stopCount = new Date ('2021-09-21');
+    const stopCount = new Date ('2021-09-22 00:00:00');
     const [countdown, setCountdown] = React.useState<number>(new Date(stopCount).getTime() - new Date().getTime());
 
     React.useEffect(() => {
@@ -22,7 +22,7 @@ export default function CountdownPanel ({ children } : Props) {
                 <Label>
                     <div className={Styles.label}>
                         <div>Tournament Begins</div>
-                        <div>Midnight, Sept 21</div>
+                        <div>Midnight, Sept 22</div>
                     </div>
                 </Label>
                 <div className={Styles.countdown}>

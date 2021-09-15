@@ -3,7 +3,7 @@ import Index from 'screens/index';
 import { AnimatedRoute, AnimatedSwitch } from 'components/animated-route';
 
 export interface RouteConf {
-    path: string;
+    path: string | string[];
     Component: React.FC;
     exact?: boolean;
     requiresAuth?: boolean;
@@ -26,7 +26,7 @@ const Routes: {
 
 export function AppRoutes () {
     return <AnimatedSwitch>
-        {Object.values(Routes).map(r => <AnimatedRoute {...r} key={r.path} />)}
+        {Object.values(Routes).map(r => <AnimatedRoute {...r} key={typeof r.path === 'string' ? r.path : r.path.join('')} />)}
     </AnimatedSwitch>;
 }
 
