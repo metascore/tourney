@@ -4,6 +4,8 @@ import Styles from './head.module.css';
 import logo from 'assets/logo.webp'
 import Button from 'components/button/button';
 import { Link } from 'react-router-dom';
+import { usePlug } from 'context/plug';
+import { useStoic } from 'context/stoic';
 
 export default function Head () {
 
@@ -35,6 +37,8 @@ export default function Head () {
 
 function Connect () {
     const isCombinedView = useMediaQuery({ query: '(max-width: 1190px'});
+    const { connect : connectP } = usePlug();
+    const { connect : connectS } = useStoic();
     if (isCombinedView) return (
         <>
             <Link to='/connect'>
@@ -47,8 +51,8 @@ function Connect () {
     );
     return (
         <>
-            <Link to='/stoic'><Button>Connect Stoic</Button></Link>
-            <Link to='/plug'><Button>Connect Plug</Button></Link>
+            <Button onClick={connectS}>Connect Stoic</Button>
+            <Button onClick={connectP}>Connect Plug</Button>
         </>
     );
 };

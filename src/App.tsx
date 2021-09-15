@@ -5,6 +5,8 @@ import Head from 'components/head/head';
 import Panel from 'components/panel/panel';
 import Stats from 'components/stats/stats';
 import GamesProvider from 'context/games';
+import PlugProvider from 'context/plug';
+import StoicProvider from 'context/stoic';
 import React from 'react'
 import { BrowserRouter as Router, Link } from 'react-router-dom';
 import Connect from 'screens/connect';
@@ -20,7 +22,9 @@ export default function App() {
 
     return (
         <Compose components={[
-            GamesProvider
+            GamesProvider,
+            PlugProvider,
+            StoicProvider,
         ]}>
             <Container>
                 <Router>
