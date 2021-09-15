@@ -2,12 +2,12 @@ import React from 'react';
 import Styles from './leaderboard-panel.module.css';
 import Panel from 'components/panel/panel';
 import Neon from 'components/neon/neon';
-import Leaderboard, { fakeEntry, fakeOverallEntry } from 'components/leaderboard/leaderboard';
+import Leaderboard, { fakeEntry, fakeOverallEntry, LeaderboardEntry } from 'components/leaderboard/leaderboard';
 import { AnimatedRoute, AnimatedSwitch } from 'components/animated-route';
 import { useParams } from 'react-router-dom';
 import { useGames } from 'context/games';
 import Button from 'components/button/button';
-import { createActor } from '@metascore/query';
+import { createActor, Score } from '@metascore/query';
 
 interface Props {
     children?: React.ReactNode;
@@ -35,11 +35,19 @@ function GameLeaderboardPanel () {
     const { games } = useGames();
     const { principal } = useParams<{principal?: string}>();
     const [p, game] = games.find(([p,]) => p.toString() === principal) || [];
-    const [scores, setScores] = React.useState();
+    const [scores, setScores] = React.useState<Score[]>([]);
     
-    React.useEffect(() => metascore.getGameScores(p, 100, 0).setScores, []);
+    React.useEffect(() => { p && metascore.getGameScores(p, [BigInt(100)], [BigInt(0)]).then(setScores).catch(console.error) }, [p]);
 
-    const data = [...Array(100).keys()].map(fakeEntry);
+    const data : LeaderboardEntry[] = scores.map((score, i) => ({
+        index: i,
+        player: {
+            principal: Object.values(score[0])[0].toString(),
+            wallet: score[0].hasOwnProperty('stoic') ? 'stoic' : 'plug',
+            nick: undefined,
+        },
+        score: Number(score[1]),
+    }));
 
 
     return <Panel>

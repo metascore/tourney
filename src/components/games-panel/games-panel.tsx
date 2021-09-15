@@ -20,7 +20,7 @@ export default function GamesPanel ({ children } : Props) {
                 <Link to="/"><Button>Tournament Leaderboard</Button></Link>
                 <div className={Styles.gameHead}>
                     <h3>Games ({games.length})</h3>
-                    <Label>Your Score</Label>
+                    <Label>Your Points</Label>
                 </div>
                 <GameList>
                     {games?.map(([principal, game], i) => <Link key={`${i}gamelink`} className={Styles.link} to={`/games/${principal}`}>

@@ -4,16 +4,16 @@ import Styles from './leaderboard.module.css';
 interface Player {
     principal: string;
     wallet: 'stoic' | 'plug';
-    nick: string;
+    nick?: string;
 };
 
-interface LeaderboardEntry {
+export interface LeaderboardEntry {
     index: number;
     player: Player;
     score: number;
 };
 
-interface OverallLeaderboardEntry extends LeaderboardEntry {
+export interface OverallLeaderboardEntry extends LeaderboardEntry {
     gamesPlayed: number;
     podiumFinishes: number;
 }
