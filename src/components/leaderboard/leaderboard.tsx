@@ -27,7 +27,8 @@ export default function Leaderboard ({ data, type } : Props) {
     
     return <div className={[Styles.root, Styles[type]].join(' ')}>
         <Head type={type} />
-        {data.map(entry => <Entry
+        {data.map((entry, i) => <Entry
+            key={`${i}entry`}
             gameEntry={type === 'game' ? entry as LeaderboardEntry : undefined}
             overallEntry={type === 'overall' ? entry as OverallLeaderboardEntry : undefined}
         />)}

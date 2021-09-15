@@ -53,7 +53,7 @@ export default function Sponsors ({} : Props) {
     }];
 
     return <div className={Styles.root}>
-        {sponsors.map(sponsor => <div className={Styles.sponsor}>
+        {sponsors.map((sponsor, i) => <div className={Styles.sponsor} key={`${i}sponsor`}>
             <a href={sponsor.link} className={Styles.link} target="_blank">
                 <img className={Styles.image} src={sponsor.image} />
                 <div className={Styles.title}>{sponsor.title}</div>

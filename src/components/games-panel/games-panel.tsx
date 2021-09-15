@@ -23,7 +23,7 @@ export default function GamesPanel ({ children } : Props) {
                     <Label>Your Score</Label>
                 </div>
                 <GameList>
-                    {games?.map(([principal, game]) => <Link className={Styles.link} to={`/games/${principal}`}>
+                    {games?.map(([principal, game], i) => <Link key={`${i}gamelink`} className={Styles.link} to={`/games/${principal}`}>
                         <Game title={game.name} score={'-'}/>
                     </Link>)}
                 </GameList>

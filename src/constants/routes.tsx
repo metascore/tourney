@@ -30,10 +30,4 @@ export function AppRoutes () {
     </AnimatedSwitch>;
 }
 
-export function LeaderboardRoutes () {
-    return <AnimatedSwitch>
-        {Object.values(Routes).map(r => <AnimatedRoute {...r} key={r.path} />)}
-    </AnimatedSwitch>;
-}
-
 export default Routes;
