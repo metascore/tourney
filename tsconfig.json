@@ -26,6 +26,7 @@
       "context/*" : ["src/context/*"],
       "screens/*" : ["src/screens/*"],
       "assets/*" : ["src/assets/*"],
+      "posts/*" : ["src/posts/*"],
     }
   },
   "exclude": ["node_modules"]

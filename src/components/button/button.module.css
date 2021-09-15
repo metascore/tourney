@@ -32,6 +32,11 @@
     text-shadow: hsla(var(--colour-active-1), 100%) 0 0 12px;
 }
 
+.root.active {
+    font-weight: bold !important;
+    color: #F3ABFF !important;
+}
+
 @media (max-width: 1121px) {
     .root {
         padding: 8px 12px;

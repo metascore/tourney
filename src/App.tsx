@@ -3,6 +3,7 @@ import Container from 'components/container/container';
 import Grid, { GridRow } from 'components/grid/grid';
 import Head from 'components/head/head';
 import Panel from 'components/panel/panel';
+import Stats from 'components/stats/stats';
 import GamesProvider from 'context/games';
 import React from 'react'
 import { BrowserRouter as Router, Link } from 'react-router-dom';
@@ -42,6 +43,11 @@ export default function App() {
                         <AnimatedRoute path='/plug' Component={Plug} />
                         <AnimatedRoute exact path={['/', '/games/:principal']} Component={Index}/>
                     </AnimatedSwitch>
+                    <Grid>
+                        <GridRow>
+                            <Stats />
+                        </GridRow>
+                    </Grid>
                 </Router>
             </Container>
         </Compose>

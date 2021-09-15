@@ -13,6 +13,14 @@
     border-radius: 2px;
 }
 
+.root.wrapContent {
+    flex-basis: auto
+}
+
+.root.wide {
+    flex: 8;
+}
+
 .root.row {
     flex-direction: row;
     align-items: center;

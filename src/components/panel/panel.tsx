@@ -5,14 +5,18 @@ interface Props {
     children?: React.ReactNode;
     row?: boolean;
     size?: 'sm';
+    wrapContent?: boolean;
+    wide?: boolean;
 };
 
-export default function Panel ({ children, row, size } : Props) {
+export default function Panel ({ children, row, size, wrapContent, wide } : Props) {
     return (
         <div className={[
             Styles.root,
-            row ? Styles.row : '',
-            size ? size : '',
+            wrapContent && Styles.wrapContent,
+            row && Styles.row,
+            size && Styles[size],
+            wide && Styles.wide,
         ].join(' ')}>
             {children}
         </div>
