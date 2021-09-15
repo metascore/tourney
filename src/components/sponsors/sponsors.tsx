@@ -8,6 +8,7 @@ import ImgNFTStudio from 'assets/sponsors/nft-studio.webp';
 import ImgPokedstudio from 'assets/sponsors/pokedstudio.webp';
 import ImgTheSword from 'assets/sponsors/thesword.webp';
 import ImgVisions from 'assets/sponsors/visions.webp';
+import ImgICPSquad from 'assets/sponsors/icpsquad.webp';
 
 interface Props {};
 
@@ -50,6 +51,10 @@ export default function Sponsors ({} : Props) {
         image: ImgNFTStudio,
         title: 'NFT Studio Poland',
         link: 'https://twitter.com/NFTStudioPoland',
+    }, {
+        image: ImgICPSquad,
+        title: 'ICPSquad',
+        link: 'https://twitter.com/ICPSquad',
     }];
 
     return <div className={Styles.root}>

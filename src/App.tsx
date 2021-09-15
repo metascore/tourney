@@ -12,7 +12,6 @@ import { BrowserRouter as Router, Link } from 'react-router-dom';
 import Account from 'screens/account';
 import Connect from 'screens/connect';
 import Guide from 'screens/guide';
-
 import Compose from './context/compose';
 import Index from './screens';
 

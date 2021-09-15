@@ -33,8 +33,6 @@ export default function PlugProvider({ children }: PlugProviderProps) {
             window.open('https://plugwallet.ooo/', '_blank');
             return;
         }
-
-        await checkConnectionAndAgent();
         
         switch (await window.ic.plug.requestConnect({ whitelist, host })) {
             case true:
@@ -84,7 +82,7 @@ export default function PlugProvider({ children }: PlugProviderProps) {
         const sessionPrincipal = window.sessionStorage.getItem('plugPrincipal');
         setIsConnected(sessionIsConnected);
         setPrincipal(sessionPrincipal ? Principal.fromText(sessionPrincipal) : undefined);
-        checkConnectionAndAgent()
+        checkConnectionAndAgent();
     }, []);
 
     const value = { connect, disconnect, principal, isConnected };

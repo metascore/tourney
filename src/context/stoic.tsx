@@ -33,7 +33,7 @@ export default function StoicProvider({ children }: ContextProviderProps) {
             setIsConnected(true);
             setPrincipal(identity.getPrincipal());
             window.sessionStorage.setItem('stoicIsConnected', 'true');
-            window.sessionStorage.setItem('stoicPrincipal', identity.getPrincipal.toText());
+            window.sessionStorage.setItem('stoicPrincipal', identity.getPrincipal().toText());
         })
     };
 
