@@ -6,6 +6,7 @@ import { useStoic } from 'context/stoic';
 import Button from 'components/button/button';
 import Styles from './head.module.css';
 import logo from 'assets/logo.webp';
+import logoSmall from 'assets/logo-small.svg';
 import stoic from 'assets/stoic.png';
 import plug from 'assets/plug.png';
 
@@ -15,13 +16,15 @@ export default function Head () {
     const { isConnected : isConnectedP } = usePlug();
     const isConnected = isConnectedP || isConnectedS;
 
+    const smallLogo = useMediaQuery({ query: '(max-width: 459px'});
+
     return (
         <header className={Styles.root}>
             <Link to='/'>
                 <img
-                    width={400}
+                    width={smallLogo ? 50 : 400}
                     height={50}
-                    src={logo}
+                    src={smallLogo ? logoSmall : logo}
                     alt="Metascore Logo"
                     className={Styles.logo}
                 />

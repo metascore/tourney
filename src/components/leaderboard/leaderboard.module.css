@@ -56,3 +56,65 @@
     align-items: center;
     text-align: center;
 }
+
+.smallLabel {
+    display: none;
+}
+
+@media (max-width: 639px) {
+    .smallLabel {
+        display: flex;
+    }
+    .row {
+        padding: 5px;
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+        grid-gap: 5px;
+        border-bottom: 1px solid var(--colour-chrome-1);
+        align-items: center;
+    }
+    .head {
+        display: none;
+    }
+    .cell.name {
+        text-align: left;
+        grid-column: 1 / span 6;
+        grid-row: 1;
+    }
+    .cell.score {
+        grid-column: 7 / span 6;
+        grid-row: 1;
+    }
+    .cell.position {
+        grid-column: 1 / span 2;
+        grid-row: 2;
+        color: #AFA6B9;
+        font-size: 14px;
+    }
+    .cell.gamesPlayed {
+        display: flex;
+        align-items: flex-end;
+        justify-content: flex-end;
+        gap: 5px;
+        text-align: right;
+        grid-row: 2;
+        color: #AFA6B9;
+        grid-column: 3 / span 5;
+        font-size: 14px;
+    }
+    .cell.podiumFinishes {
+        display: flex;
+        align-items: flex-end;
+        justify-content: flex-end;
+        gap: 5px;
+        text-align: right;
+        grid-row: 2;
+        color: #AFA6B9;
+        grid-column: 8 / span 5;
+        font-size: 14px;
+    }
+    .smallLabel {
+        font-size: 12px;
+        text-transform: uppercase;
+    }
+}

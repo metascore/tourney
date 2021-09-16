@@ -6,7 +6,6 @@
     gap: 10px;
     flex-direction: column;
 
-    max-height: 56vh;
     overflow-y: scroll;
 
     border: 1px solid var(--colour-chrome-1);
@@ -37,4 +36,17 @@
     text-transform: uppercase;
     letter-spacing: 5%;
     flex-shrink: 0;
+    white-space: nowrap;
+}
+
+@media (max-width: 1300px) {
+    .root {
+        padding: 20px;
+    }
+}
+
+@media (max-width: 640px) {
+    .root {
+        padding: 11px;
+    }
 }

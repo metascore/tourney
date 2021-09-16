@@ -1,0 +1,144 @@
+.root {
+    
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: 3fr 1fr 1fr 3fr;
+    grid-template-rows: 135px 1fr;
+    grid-gap: 30px;
+}
+
+.countdown, .score, .rank, .next, .games, .leaderboard {
+    /* display: flex; */
+}
+
+.countdown > *, .score > *, .rank > *, .next > *, .games > *, .leaderboard > * {
+    width: 100%;
+    height: 100%;
+}
+
+.countdown {
+    grid-column: 1;
+}
+
+.score {
+    grid-column: 2;
+}
+
+.rank {
+    grid-column: 3;
+}
+
+.next {
+    grid-column: 4;
+}
+
+.games {
+    grid-column: 1;
+}
+
+.leaderboard {
+    grid-column: 2/5;
+}
+
+@media (max-width: 1039px) {
+    .grid {
+        grid-template-columns: 1fr 2fr;
+        grid-template-rows: 135px 135px 1fr;
+        grid-gap: 20px;
+    }
+
+    .countdown {
+        grid-column: 2;
+        grid-row: 2;
+    }
+    
+    .score {
+        grid-column: 1;
+        grid-row: 1;
+    }
+    
+    .rank {
+        grid-column: 1;
+        grid-row: 2;
+    }
+    
+    .next {
+        grid-column: 2;
+        grid-row: 1;
+    }
+    
+    .games {
+        grid-column: 1;
+    }
+    
+    .leaderboard {
+        grid-column: 2;
+    }
+}
+
+@media (max-width: 920px) {
+    .grid {
+        grid-template-columns: 2fr 3fr;
+    }
+}
+
+@media (min-width: 769px) {
+    .games, .leaderboard {
+        max-height: 62vh;
+    }
+}
+
+@media (max-width: 768px) {
+    
+    .games {
+        grid-column: 1/ span 2;
+        grid-row: 3;
+        max-height: 50vh;
+    }
+    
+    .leaderboard {
+        grid-column: 1 / span 2;
+        grid-row: 4;
+    }
+}
+
+@media (max-width: 600px) {
+    
+    .grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-rows: auto;
+        grid-gap: 20px;
+    }
+
+    .countdown, .score, .rank, .next, .games, .leaderboard {
+        grid-column: 1;
+    }
+
+    .countdown {
+        grid-row: 1;
+    }
+    
+    .score {
+        grid-row: 2;
+    }
+    
+    .rank {
+        grid-row: 3;
+    }
+    
+    .next {
+        grid-row: 4;
+    }
+    
+    .games {
+        grid-row: 5;
+    }
+    
+    .leaderboard {
+        grid-row: 6;
+    }
+    
+}

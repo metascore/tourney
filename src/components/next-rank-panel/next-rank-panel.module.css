@@ -24,3 +24,9 @@
     font-size: 10px;
     text-transform: uppercase;
 }
+
+@media (min-width: 1040px) and (max-width: 1119px) {
+    .text {
+        display: none;
+    }
+}

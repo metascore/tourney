@@ -8,3 +8,9 @@
     display: flex;
     gap: 30px;
 }
+
+@media (max-width: 768px) {
+    .row {
+        flex-direction: column;
+    }
+}

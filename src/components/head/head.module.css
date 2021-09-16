@@ -61,6 +61,13 @@
     .flavour { display: none; }
     .textWallet { display: none; }
 }
-@media (max-width: 500px) {
+
+@media (max-width: 519px) {
     .textSurvival { display: none; }
+}
+
+@media (max-width: 459px) {
+    .logo {
+        width: 50px;
+    }
 }
