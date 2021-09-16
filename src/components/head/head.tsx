@@ -30,7 +30,10 @@ export default function Head () {
                 />
             </Link>
             <nav className={Styles.nav}>
-                <Link to='/guide'><Button><span className={Styles.textSurvival}>Survival&nbsp;</span> Guide</Button></Link>
+                <div className={Styles.main}>
+                    <Link to='/'><Button>App</Button></Link>
+                    <Link to='/guide'><Button><span className={Styles.textSurvival}>Survival&nbsp;</span> Guide</Button></Link>
+                </div>
                 <div className={Styles.flavour}>
                     Connect <span className={Styles.extraFlavour}>wallet</span> 👝
                     Play <span className={Styles.extraFlavour}>games</span> 🕹
