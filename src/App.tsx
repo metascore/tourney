@@ -2,7 +2,8 @@ import { AnimatedRoute, AnimatedSwitch } from 'components/animated-route';
 import Container from 'components/container/container';
 import Grid, { GridRow } from 'components/grid/grid';
 import Head from 'components/head/head';
-import Panel from 'components/panel/panel';
+import Panel, { Label } from 'components/panel/panel';
+import Sponsors from 'components/sponsors/sponsors';
 import Stats from 'components/stats/stats';
 import GamesProvider from 'context/games';
 import PlugProvider from 'context/plug';
@@ -44,6 +45,12 @@ export default function App() {
                         <AnimatedRoute path='/connect' Component={Connect} />
                         <AnimatedRoute exact path={['/', '/games/:principal']} Component={Index}/>
                     </AnimatedSwitch>
+                    <GridRow>
+                        <Panel row={true} size={'sm'}>
+                            <Label>Sponsors 💖</Label>
+                            <Sponsors />
+                        </Panel>
+                    </GridRow>
                     <Grid>
                         <GridRow>
                             <Stats />
