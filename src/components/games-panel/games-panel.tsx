@@ -28,7 +28,7 @@ export default function GamesPanel ({ children } : Props) {
                     </Link>)}
                 </GameList>
                 <div className={Styles.gameHead}>
-                    <h3>Unranked Games ({games.length})</h3>
+                    <h3>Unranked Games</h3>
                 </div>
             </Panel>
         </div>

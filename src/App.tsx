@@ -34,7 +34,7 @@ export default function App() {
                         <GridRow>
                             <Panel>
                                 <div>
-                                    <strong>🚨🚨 Heads Up!</strong> The app is builing built 🔨🔨 <em>right now!</em> You can <Link className='hyperlink' to='/guide'>read the guide</Link> 📖🧠 and feel free to click around, but most things don't work yet!
+                                    <strong>🚨🚨 Heads Up!</strong> The app is being built 🔨🔨 <em>right now!</em> You can <Link className='hyperlink' to='/guide'>read the guide</Link> 📖🧠 and feel free to click around, but most things don't work yet!
                                 </div>
                             </Panel>
                         </GridRow>
