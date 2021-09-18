@@ -9,6 +9,7 @@ import ImgPokedstudio from 'assets/sponsors/pokedstudio.webp';
 import ImgTheSword from 'assets/sponsors/thesword.webp';
 import ImgVisions from 'assets/sponsors/visions.webp';
 import ImgICPSquad from 'assets/sponsors/icpsquad.webp';
+import ImgICPM from 'assets/sponsors/icpm.webp';
 
 interface Props {};
 
@@ -55,6 +56,10 @@ export default function Sponsors ({} : Props) {
         image: ImgICPSquad,
         title: 'ICPSquad',
         link: 'https://twitter.com/ICPSquad',
+    }, {
+        image: ImgICPM,
+        title: 'ICP Maximalist Network',
+        link: 'https://t.me/icpmaximalistnetwork',
     }];
 
     return <div className={Styles.root}>
