@@ -1,6 +1,8 @@
 import React from 'react';
 import { StoicIdentity } from 'ic-stoic-identity';
 import { Principal } from '@dfinity/principal';
+import { ActorSubclass, HttpAgent, Identity } from '@dfinity/agent';
+import { createActor, MetascoreQuery } from '@metascore/query';
 
 
 interface StoicState {
@@ -8,6 +10,7 @@ interface StoicState {
     disconnect: () => Promise<void>;
     isConnected: boolean;
     principal?: Principal;
+    actor?: ActorSubclass<MetascoreQuery>;
 };
 
 interface ContextProviderProps {
@@ -30,11 +33,8 @@ export default function StoicProvider({ children }: ContextProviderProps) {
             if (identity === false) {
                 identity = await StoicIdentity.connect();
             };
-            setIsConnected(true);
-            setPrincipal(identity.getPrincipal());
-            window.sessionStorage.setItem('stoicIsConnected', 'true');
-            window.sessionStorage.setItem('stoicPrincipal', identity.getPrincipal().toText());
-        })
+            initActor(identity);
+        });
     };
 
     async function disconnect() {
@@ -42,19 +42,33 @@ export default function StoicProvider({ children }: ContextProviderProps) {
         setIsConnected(false);
         setPrincipal(undefined);
         window.sessionStorage.removeItem('stoicIsConnected');
-        window.sessionStorage.removeItem('stoicPrincipal');
     };
 
     const [isConnected, setIsConnected] = React.useState<boolean>(defaultState.isConnected);
     const [principal, setPrincipal] = React.useState<Principal>();
+    const [actor, setActor] = React.useState<ActorSubclass<MetascoreQuery>>();
 
     React.useEffect(() => {
         const sessionIsConnected = window.sessionStorage.getItem('stoicIsConnected') === 'true';
-        const sessionPrincipal = window.sessionStorage.getItem('stoicPrincipal');
-        setIsConnected(sessionIsConnected);
-        setPrincipal(sessionPrincipal ? Principal.fromText(sessionPrincipal) : undefined);
+        if (sessionIsConnected) {
+            StoicIdentity.load().then(async (identity: any) => {
+                identity && initActor(identity);
+            });
+        }
     }, []);
 
-    const value = { connect, disconnect, isConnected, principal };
+    function initActor(identity: Identity) {
+        const actor = createActor(new HttpAgent({
+            identity,
+            host: 'http://localhost:8000'
+        }));
+        setIsConnected(true);
+        setPrincipal(identity.getPrincipal());
+        setActor(actor);
+        window.sessionStorage.setItem('stoicIsConnected', 'true');
+        window.sessionStorage.setItem('stoicPrincipal', identity.getPrincipal().toText());
+    };
+
+    const value = { connect, disconnect, isConnected, principal, actor };
     return <stoicContext.Provider value={value} children={children} />
 };

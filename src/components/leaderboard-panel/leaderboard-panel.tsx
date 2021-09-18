@@ -32,7 +32,7 @@ export default function LeaderboardPanel ({ children } : Props) {
 };
 
 function GameLeaderboardPanel () {
-    const metascore = createActor();
+    const metascore = React.useMemo(() => createActor(), []);
     const { games } = useGames();
     const { principal } = useParams<{principal?: string}>();
     const [p, game] = games.find(([p,]) => p.toString() === principal) || [];

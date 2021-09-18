@@ -7,7 +7,7 @@ interface Props {};
 
 export default function Stats ({} : Props) {
     const { games } = useGames();
-    const metascore = createActor();
+    const metascore = React.useMemo(() => createActor(), []);
     const [players, setPlayers] = React.useState<number>()
     const [scores, setScores] = React.useState<number>()
 
