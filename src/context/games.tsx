@@ -1,14 +1,7 @@
 import { HttpAgent } from '@dfinity/agent';
-import { createActor, GamePrincipal, Metadata, PRODUCTION_PRINCIPAL, STAGING_PRINCIPAL } from '@metascore/query';
+import { createActor, GamePrincipal, Metadata } from '@metascore/query';
 import React from 'react';
-
-const agent = new HttpAgent({
-    host: window.location.host.includes('localhost')
-        ? 'http://localhost:8000'
-        : 'https://raw.ic0.app',
-});
-
-const metascore = createActor(agent, window.location.host.includes('t6ury') ? PRODUCTION_PRINCIPAL : STAGING_PRINCIPAL);
+import { useEnv } from './env';
 
 type Games = [GamePrincipal, Metadata][];
 
@@ -22,6 +15,15 @@ interface GamesProviderProps {
 
 export const GamesContext = React.createContext<GamesState>({ games: [], });
 export default function GamesProvider({ children }: GamesProviderProps) {
+
+    const { metascorePrincipal, metascoreHost } = useEnv();
+
+    const metascore = React.useMemo(() => {
+        const agent = new HttpAgent({
+            host: metascoreHost,
+        });
+        return createActor(agent, metascorePrincipal);
+    }, []);
 
     const [games, setGames] = React.useState<[GamePrincipal, Metadata][]>([]);
     const value = { games, };

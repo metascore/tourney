@@ -16,6 +16,7 @@ import Connect from 'screens/connect';
 import Guide from 'screens/guide';
 import Compose from './context/compose';
 import Index from './screens';
+import EnvProvider from 'context/env';
 
 
 export default function App() {
@@ -26,6 +27,7 @@ export default function App() {
             GamesProvider,
             PlugProvider,
             StoicProvider,
+            EnvProvider,
         ]}>
             <Container>
                 <Router>

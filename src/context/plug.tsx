@@ -1,7 +1,8 @@
 import React from 'react';
-import { ActorSubclass, HttpAgent } from '@dfinity/agent';
+import { ActorSubclass } from '@dfinity/agent';
 import { Principal } from '@dfinity/principal';
-import { MetascoreQuery, createActor, PRODUCTION_PRINCIPAL, STAGING_PRINCIPAL } from '@metascore/query';
+import { MetascoreQuery, createActor } from '@metascore/query';
+import { useEnv } from './env';
 
 
 interface PlugState {
@@ -27,14 +28,9 @@ export const usePlug = () => React.useContext(PlugContext);
 
 export default function PlugProvider({ children }: PlugProviderProps) {
 
-    const whitelist = [
-        window.location.host.includes('t6ury')
-            ? PRODUCTION_PRINCIPAL
-            : STAGING_PRINCIPAL,
-    ];
-    const host = window.location.host.includes('localhost')
-        ? `http://localhost:8000`
-        : 'https://raw.ic0.app';
+    const { metascorePrincipal, metascoreHost, isLocal } = useEnv();
+    const whitelist = [metascorePrincipal];
+    const host = metascoreHost;
 
     const [isConnected, setIsConnected] = React.useState<boolean>(DefaultState.isConnected);
     const [principal, setPrincipal] = React.useState<Principal>();
@@ -101,9 +97,9 @@ export default function PlugProvider({ children }: PlugProviderProps) {
     async function initActor() {
         if (!window?.ic?.plug?.agent) return;
         const agent = await window.ic.plug.agent;
-        if (window.location.host.includes('localhost')) agent.fetchRootKey();
+        if (isLocal) agent.fetchRootKey();
         const principal = await agent.getPrincipal();
-        const actor = createActor(agent, window.location.host.includes('t6ury') ? PRODUCTION_PRINCIPAL : STAGING_PRINCIPAL);
+        const actor = createActor(agent, metascorePrincipal);
         window.sessionStorage.setItem('plugIsConnected', 'true');
         window.sessionStorage.setItem('plugPrincipal', principal.toText());
         setIsConnected(true);

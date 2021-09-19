@@ -2,13 +2,14 @@ import React from 'react';
 import Styles from './leaderboard-panel.module.css';
 import Panel from 'components/panel/panel';
 import Neon from 'components/neon/neon';
-import Leaderboard, { fakeEntry, fakeOverallEntry, LeaderboardEntry } from 'components/leaderboard/leaderboard';
+import Leaderboard, { fakeOverallEntry, LeaderboardEntry } from 'components/leaderboard/leaderboard';
 import { AnimatedRoute, AnimatedSwitch } from 'components/animated-route';
 import { useParams } from 'react-router-dom';
 import { useGames } from 'context/games';
 import Button from 'components/button/button';
-import { createActor, PRODUCTION_PRINCIPAL, Score, STAGING_PRINCIPAL } from '@metascore/query';
+import { createActor, Score } from '@metascore/query';
 import { HttpAgent } from '@dfinity/agent';
+import { useEnv } from 'context/env';
 
 interface Props {
     children?: React.ReactNode;
@@ -33,14 +34,14 @@ export default function LeaderboardPanel ({ children } : Props) {
 };
 
 function GameLeaderboardPanel () {
+
+    const { metascorePrincipal, metascoreHost } = useEnv();
     
     const metascore = React.useMemo(() => {
         const agent = new HttpAgent({
-            host: window.location.host.includes('localhost')
-                ? 'http://localhost:8000'
-                : 'https://raw.ic0.app',
+            host: metascoreHost
         });
-        return createActor(agent, window.location.host.includes('t6ury') ? PRODUCTION_PRINCIPAL : STAGING_PRINCIPAL)
+        return createActor(agent, metascorePrincipal);
     }, []);
     const { games } = useGames();
     const { principal } = useParams<{principal?: string}>();

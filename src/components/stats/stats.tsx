@@ -1,5 +1,6 @@
 import { HttpAgent } from '@dfinity/agent';
 import { createActor, PRODUCTION_PRINCIPAL, STAGING_PRINCIPAL } from '@metascore/query';
+import { useEnv } from 'context/env';
 import { useGames } from 'context/games';
 import React from 'react';
 import Styles from './stats.module.css';
@@ -8,13 +9,12 @@ interface Props {};
 
 export default function Stats ({} : Props) {
     const { games } = useGames();
+    const { metascorePrincipal, metascoreHost } = useEnv();
     const metascore = React.useMemo(() => {
         const agent = new HttpAgent({
-            host: window.location.host.includes('localhost')
-                ? 'http://localhost:8000'
-                : 'https://raw.ic0.app',
+            host: metascoreHost
         });
-        return createActor(agent, window.location.host.includes('t6ury') ? PRODUCTION_PRINCIPAL : STAGING_PRINCIPAL)
+        return createActor(agent, metascorePrincipal);
     }, []);
     const [players, setPlayers] = React.useState<number>()
     const [scores, setScores] = React.useState<number>()

@@ -2,7 +2,8 @@ import React from 'react';
 import { StoicIdentity } from 'ic-stoic-identity';
 import { Principal } from '@dfinity/principal';
 import { ActorSubclass, HttpAgent, Identity } from '@dfinity/agent';
-import { createActor, MetascoreQuery, PRODUCTION_PRINCIPAL, STAGING_PRINCIPAL } from '@metascore/query';
+import { createActor, MetascoreQuery } from '@metascore/query';
+import { useEnv } from './env';
 
 
 interface StoicState {
@@ -44,6 +45,8 @@ export default function StoicProvider({ children }: ContextProviderProps) {
         window.sessionStorage.removeItem('stoicIsConnected');
     };
 
+    const { metascorePrincipal, metascoreHost, isLocal } = useEnv();
+
     const [isConnected, setIsConnected] = React.useState<boolean>(defaultState.isConnected);
     const [principal, setPrincipal] = React.useState<Principal>();
     const [actor, setActor] = React.useState<ActorSubclass<MetascoreQuery>>();
@@ -60,12 +63,10 @@ export default function StoicProvider({ children }: ContextProviderProps) {
     async function initActor(identity: Identity) {
         const agent = new HttpAgent({
             identity,
-            host: window.location.host.includes('localhost')
-                ? 'http://localhost:8000'
-                : 'https://raw.ic0.app',
+            host: metascoreHost,
         });
-        if (window.location.host.includes('localhost')) agent.fetchRootKey();
-        const actor = createActor(agent, window.location.host.includes('t6ury') ? PRODUCTION_PRINCIPAL : STAGING_PRINCIPAL);
+        if (isLocal) agent.fetchRootKey();
+        const actor = createActor(agent, metascorePrincipal);
         setIsConnected(true);
         setPrincipal(identity.getPrincipal());
         setActor(actor);
