@@ -27,7 +27,7 @@ export const useEnv = () => React.useContext(envContext);
 
 export default function EnvProvider({ children }: ContextProviderProps) {
 
-    const metascorePrincipal = 'rrkah-fqaaa-aaaaa-aaaaq-cai';//defaultState.metascorePrincipal;
+    const metascorePrincipal = defaultState.metascorePrincipal;
     const metascoreHost = defaultState.metascoreHost;
     const isLocal = window.location.host.includes('localhost');
 

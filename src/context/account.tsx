@@ -41,7 +41,7 @@ export default function AccountProvider({ children }: ContextProviderProps) {
         const actor = actorS || actorP;
         const wallet : 'stoic' | 'plug' = actor === actorS ? 'stoic' : 'plug';
         const principal = wallet === 'stoic' ? principalS : principalP;
-        if (actor && !account && !loading?.account) {
+        if (principal && actor && !account && !loading?.account) {
             console.info(`Requesting Metascore account...`);
             setLoading(Object.assign({}, loading, { account : true }));
             const authRequest : AuthRequest = {
@@ -89,7 +89,7 @@ export default function AccountProvider({ children }: ContextProviderProps) {
                 });
             };
         };
-    }, [actorS, actorP, principalS, principalP, account]);
+    }, [actorS, actorP, principalS, principalP, account, connectedP, connectedS, principalP, principalS]);
 
     return <accountContext.Provider
         value={{

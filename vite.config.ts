@@ -11,5 +11,5 @@ export default defineConfig({
     markdown({
       mode: [Mode.REACT],
     }),
-  ],
+  ]
 })
