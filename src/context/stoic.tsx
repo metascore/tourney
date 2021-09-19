@@ -57,11 +57,15 @@ export default function StoicProvider({ children }: ContextProviderProps) {
         }
     }, []);
 
-    function initActor(identity: Identity) {
-        const actor = createActor(new HttpAgent({
+    async function initActor(identity: Identity) {
+        const agent = new HttpAgent({
             identity,
-            host: 'http://localhost:8000'
-        }));
+            host: window.location.host.includes('localhost')
+                ? 'http://localhost:8000'
+                : 'https://raw.ic0.app',
+        });
+        if (window.location.host.includes('localhost')) agent.fetchRootKey();
+        const actor = createActor(agent);
         setIsConnected(true);
         setPrincipal(identity.getPrincipal());
         setActor(actor);
@@ -69,6 +73,14 @@ export default function StoicProvider({ children }: ContextProviderProps) {
         window.sessionStorage.setItem('stoicPrincipal', identity.getPrincipal().toText());
     };
 
-    const value = { connect, disconnect, isConnected, principal, actor };
-    return <stoicContext.Provider value={value} children={children} />
+    return <stoicContext.Provider
+        value={{
+            connect,
+            disconnect,
+            isConnected,
+            principal,
+            actor
+        }}
+        children={children} 
+    />
 };

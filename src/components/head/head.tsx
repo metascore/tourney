@@ -9,6 +9,7 @@ import logo from 'assets/logo.webp';
 import logoSmall from 'assets/logo-small.svg';
 import stoic from 'assets/stoic.png';
 import plug from 'assets/plug.png';
+import { useAccount } from 'context/account';
 
 export default function Head () {
 
@@ -48,39 +49,51 @@ export default function Head () {
 };
 
 function Connect () {
-    const isCombinedView = useMediaQuery({ query: '(max-width: 1190px'});
-    const { connect : connectP } = usePlug();
-    const { connect : connectS } = useStoic();
-    if (isCombinedView) return (
-        <>
-            <Link to='/connect'>
-                <Button>
-                    Connect
-                    <span className={Styles.textWallet}>&nbsp;Wallet</span>
-                </Button>
-            </Link>
-        </>
-    );
     return (
-        <>
-            <Button onClick={connectS}>Connect Stoic</Button>
-            <Button onClick={connectP}>Connect Plug</Button>
-        </>
+        <Link to='/account'>
+            <Button>
+                Connect
+                <span className={Styles.textWallet}>&nbsp;Wallet</span>
+            </Button>
+        </Link>
     );
 };
 
 function Account () {
+    const { account } = useAccount();
     const { isConnected : isConnectedS, principal : principalS } = useStoic();
     const { isConnected : isConnectedP, principal : principalP } = usePlug();
     
-    const wallet = isConnectedS ? 'stoic' : isConnectedP ? 'plug' : undefined;
-    const principal = principalS?.toText() || principalP?.toText();
+    const wallet = account
+        ? Object.keys(account.primaryWallet)[0]
+        : isConnectedS
+            ? 'stoic'
+            : isConnectedP
+                ? 'plug'
+                : undefined;
+
+    const principal = account
+        ? Object.values(account.primaryWallet)[0].toText()
+        : principalS?.toText() || principalP?.toText();
 
     return (
         <Link to='/account'>
             <Button>
-                <img src={wallet === 'stoic' ? stoic : plug} width={22} height={22} />
-                {principal?.slice(0, 5)}...{principal?.slice(principal?.length - 3)}
+                <img src={
+                    account?.avatar[0]
+                        ? account.avatar[0]
+                        : wallet === 'stoic'
+                            ? stoic
+                            : plug
+                    }
+                    width={18}
+                    height={18}
+                />
+                {
+                    account?.alias[0]
+                        ? account?.alias[0]
+                        : `${principal?.slice(0, 4)}...${principal?.slice(principal?.length - 3)}`
+                }
             </Button>
         </Link>
     );

@@ -1,7 +1,14 @@
+import { HttpAgent } from '@dfinity/agent';
 import { createActor, GamePrincipal, Metadata } from '@metascore/query';
 import React from 'react';
 
-const metascore = createActor();
+const agent = new HttpAgent({
+    host: window.location.host.includes('localhost')
+        ? 'http://localhost:8000'
+        : 'https://raw.ic0.app',
+});
+
+const metascore = createActor(agent);
 
 type Games = [GamePrincipal, Metadata][];
 

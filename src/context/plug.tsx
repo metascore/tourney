@@ -1,11 +1,15 @@
-import { Principal } from '@dfinity/principal';
 import React from 'react';
+import { ActorSubclass, HttpAgent } from '@dfinity/agent';
+import { Principal } from '@dfinity/principal';
+import { MetascoreQuery, createActor } from '@metascore/query';
+
 
 interface PlugState {
     connect: () => Promise<void>;
     disconnect: () => Promise<void>;
     isConnected: boolean;
     principal?: Principal;
+    actor?: ActorSubclass<MetascoreQuery>;
 };
 
 interface PlugProviderProps {
@@ -19,13 +23,22 @@ const DefaultState: PlugState = {
 }
 
 export const PlugContext = React.createContext<PlugState>(DefaultState);
+export const usePlug = () => React.useContext(PlugContext);
+
 export default function PlugProvider({ children }: PlugProviderProps) {
 
-    const whitelist = ['oagmd-5iaaa-aaaah-qbnma-cai'];
-    const host = window.location.host;
+    const whitelist = [
+        window.location.host.includes('localhost')
+            ? 'rrkah-fqaaa-aaaaa-aaaaq-cai'
+            : 'oagmd-5iaaa-aaaah-qbnma-cai',
+    ];
+    const host = window.location.host.includes('localhost')
+        ? `http://localhost:8000`
+        : 'https://raw.ic0.app';
 
     const [isConnected, setIsConnected] = React.useState<boolean>(DefaultState.isConnected);
     const [principal, setPrincipal] = React.useState<Principal>();
+    const [actor, setActor] = React.useState<ActorSubclass<MetascoreQuery>>();
 
     async function connect () {
         // If the user doesn't have plug, send them to get it!
@@ -36,16 +49,13 @@ export default function PlugProvider({ children }: PlugProviderProps) {
         
         switch (await window.ic.plug.requestConnect({ whitelist, host })) {
             case true:
-                const principal = await window.ic.plug.agent.getPrincipal();
-                window.sessionStorage.setItem('plugIsConnected', 'true');
-                window.sessionStorage.setItem('plugPrincipal', principal.toText());
-                setIsConnected(true);
-                setPrincipal(principal);
+                initActor();
                 break
             case false:
                 console.error('Error connecting plug...');
                 setIsConnected(false);
                 setPrincipal(undefined);
+                setActor(undefined);
                 break;
         }
     };
@@ -53,6 +63,7 @@ export default function PlugProvider({ children }: PlugProviderProps) {
     async function disconnect () {
         setIsConnected(false);
         setPrincipal(undefined);
+        setActor(undefined);
         window.ic?.plug?.deleteAgent();
         window.sessionStorage.removeItem('plugIsConnected');
         window.sessionStorage.removeItem('plugPrincipal');
@@ -65,7 +76,8 @@ export default function PlugProvider({ children }: PlugProviderProps) {
     };
 
     async function checkAgent () {
-        if (window?.ic?.plug === undefined) return false; 
+        if (window?.ic?.plug === undefined) return false;
+        if (!isConnected) return;
         if (!window.ic.plug.agent) {
             await window.ic.plug.createAgent({ whitelist, host })
         };
@@ -83,13 +95,34 @@ export default function PlugProvider({ children }: PlugProviderProps) {
         setIsConnected(sessionIsConnected);
         setPrincipal(sessionPrincipal ? Principal.fromText(sessionPrincipal) : undefined);
         checkConnectionAndAgent();
+        // initActor();
     }, []);
 
-    const value = { connect, disconnect, principal, isConnected };
+    async function initActor() {
+        if (!window?.ic?.plug?.agent) return;
+        const agent = await window.ic.plug.agent;
+        if (window.location.host.includes('localhost')) agent.fetchRootKey();
+        const principal = await agent.getPrincipal();
+        const actor = createActor(agent);
+        window.sessionStorage.setItem('plugIsConnected', 'true');
+        window.sessionStorage.setItem('plugPrincipal', principal.toText());
+        setIsConnected(true);
+        setPrincipal(principal);
+        setActor(actor);
+    };
 
-    return <PlugContext.Provider value={value} children={children} />;
+    return <PlugContext.Provider
+        value={{
+            connect,
+            disconnect,
+            principal,
+            isConnected,
+            actor,
+        }}
+        children={children}
+    />;
 };
-export const usePlug = () => React.useContext(PlugContext);
+
 
 // This is the stuff that plug wallet extension stuffs into the global window namespace.
 // I stole this for Norton: https://github.com/FloorLamp/cubic/blob/3b9139b4f2d16bf142bf35f2efb4c29d6f637860/src/ui/components/Buttons/LoginButton.tsx#L59

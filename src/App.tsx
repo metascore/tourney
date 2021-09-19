@@ -8,6 +8,7 @@ import Stats from 'components/stats/stats';
 import GamesProvider from 'context/games';
 import PlugProvider from 'context/plug';
 import StoicProvider from 'context/stoic';
+import AccountProvider from 'context/account';
 import React from 'react'
 import { BrowserRouter as Router, Link } from 'react-router-dom';
 import Account from 'screens/account';
@@ -21,6 +22,7 @@ export default function App() {
 
     return (
         <Compose components={[
+            AccountProvider,
             GamesProvider,
             PlugProvider,
             StoicProvider,
