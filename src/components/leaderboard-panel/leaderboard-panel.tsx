@@ -7,7 +7,8 @@ import { AnimatedRoute, AnimatedSwitch } from 'components/animated-route';
 import { useParams } from 'react-router-dom';
 import { useGames } from 'context/games';
 import Button from 'components/button/button';
-import { createActor, Score } from '@metascore/query';
+import { createActor, PRODUCTION_PRINCIPAL, Score } from '@metascore/query';
+import { HttpAgent } from '@dfinity/agent';
 
 interface Props {
     children?: React.ReactNode;
@@ -32,7 +33,15 @@ export default function LeaderboardPanel ({ children } : Props) {
 };
 
 function GameLeaderboardPanel () {
-    const metascore = React.useMemo(() => createActor(), []);
+    
+    const metascore = React.useMemo(() => {
+        const agent = new HttpAgent({
+            host: window.location.host.includes('localhost')
+                ? 'http://localhost:8000'
+                : 'https://raw.ic0.app',
+        });
+        return createActor(agent, PRODUCTION_PRINCIPAL)
+    }, []);
     const { games } = useGames();
     const { principal } = useParams<{principal?: string}>();
     const [p, game] = games.find(([p,]) => p.toString() === principal) || [];

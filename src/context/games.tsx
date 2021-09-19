@@ -1,5 +1,5 @@
 import { HttpAgent } from '@dfinity/agent';
-import { createActor, GamePrincipal, Metadata } from '@metascore/query';
+import { createActor, GamePrincipal, Metadata, PRODUCTION_PRINCIPAL } from '@metascore/query';
 import React from 'react';
 
 const agent = new HttpAgent({
@@ -8,7 +8,7 @@ const agent = new HttpAgent({
         : 'https://raw.ic0.app',
 });
 
-const metascore = createActor(agent);
+const metascore = createActor(agent, PRODUCTION_PRINCIPAL);
 
 type Games = [GamePrincipal, Metadata][];
 

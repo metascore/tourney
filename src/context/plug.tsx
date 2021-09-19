@@ -1,7 +1,7 @@
 import React from 'react';
 import { ActorSubclass, HttpAgent } from '@dfinity/agent';
 import { Principal } from '@dfinity/principal';
-import { MetascoreQuery, createActor } from '@metascore/query';
+import { MetascoreQuery, createActor, PRODUCTION_PRINCIPAL } from '@metascore/query';
 
 
 interface PlugState {
@@ -103,7 +103,7 @@ export default function PlugProvider({ children }: PlugProviderProps) {
         const agent = await window.ic.plug.agent;
         if (window.location.host.includes('localhost')) agent.fetchRootKey();
         const principal = await agent.getPrincipal();
-        const actor = createActor(agent);
+        const actor = createActor(agent, PRODUCTION_PRINCIPAL);
         window.sessionStorage.setItem('plugIsConnected', 'true');
         window.sessionStorage.setItem('plugPrincipal', principal.toText());
         setIsConnected(true);
