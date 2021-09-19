@@ -7,7 +7,7 @@ import { AnimatedRoute, AnimatedSwitch } from 'components/animated-route';
 import { useParams } from 'react-router-dom';
 import { useGames } from 'context/games';
 import Button from 'components/button/button';
-import { createActor, PRODUCTION_PRINCIPAL, Score } from '@metascore/query';
+import { createActor, PRODUCTION_PRINCIPAL, Score, STAGING_PRINCIPAL } from '@metascore/query';
 import { HttpAgent } from '@dfinity/agent';
 
 interface Props {
@@ -40,7 +40,7 @@ function GameLeaderboardPanel () {
                 ? 'http://localhost:8000'
                 : 'https://raw.ic0.app',
         });
-        return createActor(agent, PRODUCTION_PRINCIPAL)
+        return createActor(agent, window.location.host.includes('t6ury') ? PRODUCTION_PRINCIPAL : STAGING_PRINCIPAL)
     }, []);
     const { games } = useGames();
     const { principal } = useParams<{principal?: string}>();

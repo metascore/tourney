@@ -1,5 +1,5 @@
 import { HttpAgent } from '@dfinity/agent';
-import { createActor, PRODUCTION_PRINCIPAL } from '@metascore/query';
+import { createActor, PRODUCTION_PRINCIPAL, STAGING_PRINCIPAL } from '@metascore/query';
 import { useGames } from 'context/games';
 import React from 'react';
 import Styles from './stats.module.css';
@@ -14,7 +14,7 @@ export default function Stats ({} : Props) {
                 ? 'http://localhost:8000'
                 : 'https://raw.ic0.app',
         });
-        return createActor(agent, PRODUCTION_PRINCIPAL)
+        return createActor(agent, window.location.host.includes('t6ury') ? PRODUCTION_PRINCIPAL : STAGING_PRINCIPAL)
     }, []);
     const [players, setPlayers] = React.useState<number>()
     const [scores, setScores] = React.useState<number>()

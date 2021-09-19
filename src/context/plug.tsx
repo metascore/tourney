@@ -1,7 +1,7 @@
 import React from 'react';
 import { ActorSubclass, HttpAgent } from '@dfinity/agent';
 import { Principal } from '@dfinity/principal';
-import { MetascoreQuery, createActor, PRODUCTION_PRINCIPAL } from '@metascore/query';
+import { MetascoreQuery, createActor, PRODUCTION_PRINCIPAL, STAGING_PRINCIPAL } from '@metascore/query';
 
 
 interface PlugState {
@@ -28,9 +28,9 @@ export const usePlug = () => React.useContext(PlugContext);
 export default function PlugProvider({ children }: PlugProviderProps) {
 
     const whitelist = [
-        window.location.host.includes('localhost')
-            ? 'rrkah-fqaaa-aaaaa-aaaaq-cai'
-            : 'oagmd-5iaaa-aaaah-qbnma-cai',
+        window.location.host.includes('t6ury')
+            ? PRODUCTION_PRINCIPAL
+            : STAGING_PRINCIPAL,
     ];
     const host = window.location.host.includes('localhost')
         ? `http://localhost:8000`
@@ -103,7 +103,7 @@ export default function PlugProvider({ children }: PlugProviderProps) {
         const agent = await window.ic.plug.agent;
         if (window.location.host.includes('localhost')) agent.fetchRootKey();
         const principal = await agent.getPrincipal();
-        const actor = createActor(agent, PRODUCTION_PRINCIPAL);
+        const actor = createActor(agent, window.location.host.includes('t6ury') ? PRODUCTION_PRINCIPAL : STAGING_PRINCIPAL);
         window.sessionStorage.setItem('plugIsConnected', 'true');
         window.sessionStorage.setItem('plugPrincipal', principal.toText());
         setIsConnected(true);
