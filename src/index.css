@@ -102,3 +102,13 @@ a.hyperlink {
 }
 
 iframe { border: none; }
+
+table {
+  margin-top: 50px;
+  width: 100%;
+  text-align: left;
+}
+
+td {
+  height: 50px;
+}

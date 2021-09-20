@@ -58,7 +58,7 @@ export default function Sponsors ({} : Props) {
         link: 'https://twitter.com/ICPSquad',
     }, {
         image: ImgICPM,
-        title: 'ICP Maximalist Network',
+        title: 'ICP Maximalist Network Ambassadors',
         link: 'https://t.me/icpmaximalistnetwork',
     }];
 
