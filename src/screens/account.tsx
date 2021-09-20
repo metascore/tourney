@@ -37,23 +37,17 @@ export default function Account () {
     };
 
     async function connect (wallet : 'stoic' | 'plug') {
-        const connect = wallet === 'plug' ? connectP : connectS;
-        const actor = wallet === 'plug' ? actorP : actorS;
-        const principal = wallet === 'plug' ? principalP : principalS;
-        await connect();
-        // @ts-ignore
-        actor && principal && actor?.authenticateAccount({'authenticate': { [wallet] : principal }})
+        if (wallet === 'stoic') {
+            connectS();
+        }
+        if (wallet === 'plug') {
+            connectP();
+        }
     }
 
     function updateAccount () {
         const actor = actorP || actorS;
         if (actor) {
-            console.log('Update account!', {
-                alias: alias ? [alias] : [],
-                avatar: avatar ? [avatar] : [],
-                flavorText: flavorText ? [flavorText] : [],
-                primaryWallet: primaryWallet ? [primaryWallet] : [],
-            })
             actor.updateAccount({
                 alias: alias ? [alias] : [],
                 avatar: avatar ? [avatar] : [],

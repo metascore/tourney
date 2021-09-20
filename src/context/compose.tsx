@@ -1,19 +1,14 @@
 import React from 'react';
 
-type Components = React.ComponentType | [React.ComponentType, { [key: string]: any }];
-
 interface Props {
-    components: Components[];
+    components: {order: number; component: React.ComponentType}[];
     children?: React.ReactNode
 }
 
 export default function Compose ({ components, children }: Props) {
-    return (
-        <React.Fragment>
-            {components.reverse().reduce((acc, curr) => {
-                const [Provider, props] = Array.isArray(curr) ? [curr[0], curr[1]] : [curr, {}];
-                return <Provider {...props}>{acc}</Provider>;
-            }, children)}
-        </React.Fragment>
-    );
+    return <>
+        {components.sort((a, b) => a.order - b.order).reverse().reduce((acc, provider) => {
+            return <provider.component>{acc}</provider.component>
+        }, children)}
+    </>;
 }

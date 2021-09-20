@@ -21,26 +21,21 @@ import EnvProvider from 'context/env';
 
 export default function App() {
 
+    const contextProviders = [
+        {order: 0, component: EnvProvider},
+        {order: 1, component: StoicProvider},
+        {order: 2, component: PlugProvider},
+        {order: 3, component: GamesProvider},
+        {order: 4, component: AccountProvider},
+    ];
+
     return (
-        <Compose components={[
-            AccountProvider,
-            GamesProvider,
-            PlugProvider,
-            StoicProvider,
-            EnvProvider,
-        ]}>
+        <Compose components={contextProviders}>
             <Container>
                 <Router>
                     <Grid>
                         <GridRow>
                             <Head />
-                        </GridRow>
-                        <GridRow>
-                            <Panel>
-                                <div>
-                                    <strong>🚨🚨 Heads Up!</strong> The app is being built 🔨🔨 <em>right now!</em> You can <Link className='hyperlink' to='/guide'>read the guide</Link> 📖🧠 and feel free to click around, but most things don't work yet!
-                                </div>
-                            </Panel>
                         </GridRow>
                     </Grid>
                     <AnimatedSwitch>
