@@ -1,0 +1,9 @@
+.root {
+    display: flex;
+    column-gap: 20px;
+    align-items: center;
+}
+
+.link {}
+
+.icon {}: red !important;

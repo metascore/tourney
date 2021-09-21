@@ -86,12 +86,8 @@ export default function PlugProvider({ children }: PlugProviderProps) {
     };
 
     React.useEffect(() => {
-        const sessionIsConnected = window.sessionStorage.getItem('plugIsConnected') === 'true';
-        const sessionPrincipal = window.sessionStorage.getItem('plugPrincipal');
-        setIsConnected(sessionIsConnected);
-        setPrincipal(sessionPrincipal ? Principal.fromText(sessionPrincipal) : undefined);
         checkConnectionAndAgent();
-        // initActor();
+        initActor();
     }, []);
 
     async function initActor() {

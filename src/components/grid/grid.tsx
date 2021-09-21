@@ -3,6 +3,7 @@ import Styles from './grid.module.css';
 
 interface Props {
     children?: React.ReactNode;
+    center?: boolean;
 };
 
 export default function Grid ({ children } : Props) {
@@ -13,9 +14,12 @@ export default function Grid ({ children } : Props) {
     );
 };
 
-export function GridRow ({ children } : Props) {
+export function GridRow ({ children, center } : Props) {
     return (
-        <div className={Styles.row}>
+        <div className={[
+            Styles.row,
+            center ? Styles.center : '',
+        ].join(' ')}>
             {children}
         </div>
     );

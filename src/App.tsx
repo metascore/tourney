@@ -18,6 +18,7 @@ import Compose from './context/compose';
 import Index from './screens';
 import EnvProvider from 'context/env';
 import PlayerStatsProvider from 'context/player-stats';
+import Socials from 'components/socials/socials';
 
 
 export default function App() {
@@ -53,7 +54,8 @@ export default function App() {
                         </Panel>
                     </GridRow>
                     <Grid>
-                        <GridRow>
+                        <GridRow center>
+                            <Socials />
                             <Stats />
                         </GridRow>
                     </Grid>

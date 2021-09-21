@@ -9,6 +9,10 @@
     gap: 30px;
 }
 
+.center {
+    align-items: center;
+}
+
 @media (max-width: 768px) {
     .row {
         flex-direction: column;

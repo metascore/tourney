@@ -17,8 +17,8 @@
 
 .badgeContainer {
     position: absolute;
-    top: 0; right: -10px; bottom: 0;
-    width: 100px;
+    top: 0; right: -50px; bottom: 0;
+    width: 160px;
     align-items: center;
     flex-direction: column;
 }
@@ -28,9 +28,9 @@
     box-sizing: border-box;
     position: absolute;
     top: 50%;
-    transform: translateY(-50px);
-    width: 100px;
-    height: 100px;
+    transform: translateY(-80px);
+    width: 160px;
+    height: 160px;
 }
 
 .badgeUnranked {
