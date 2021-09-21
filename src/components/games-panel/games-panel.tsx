@@ -12,11 +12,11 @@ interface Props {
 
 export default function GamesPanel ({ children } : Props) {
 
-    const { games } = useGames();
+    const { games, loading } = useGames();
 
     return (
         <div className={Styles.root}>
-            <Panel>
+            <Panel loading={loading}>
                 <Link to="/"><Button>Tournament Leaderboard</Button></Link>
                 <div className={Styles.gameHead}>
                     <h3>Ranked Games ({games.length})</h3>
@@ -24,7 +24,7 @@ export default function GamesPanel ({ children } : Props) {
                 </div>
                 <GameList>
                     {games?.map(([principal, game], i) => <Link key={`${i}gamelink`} className={Styles.link} to={`/games/${principal}`}>
-                        <Game gamep={principal} title={game.name} score={'-'}/>
+                        <Game gamep={principal} title={game.name} />
                     </Link>)}
                 </GameList>
                 <div className={Styles.gameHead}>

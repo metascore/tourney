@@ -27,8 +27,8 @@ export default function App() {
         {order: 0, component: EnvProvider},
         {order: 1, component: StoicProvider},
         {order: 2, component: PlugProvider},
-        {order: 3, component: GamesProvider},
-        {order: 4, component: AccountProvider},
+        {order: 3, component: AccountProvider},
+        {order: 4, component: GamesProvider},
         {order: 5, component: PlayerStatsProvider},
     ];
 
