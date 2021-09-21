@@ -69,10 +69,20 @@ export default function PlayerStatsProvider({ children }: PlayerStatsProviderPro
         queryTop3();
         
     }, [actorS, actorP, account]);
+    
+    React.useEffect(() => {
+        const i = setInterval(() => {
+            queryMetascore();
+            queryThresholds();
+            queryTop3();
+        }, 15_000);
+        return () => clearInterval(i);
+    }, []);
 
     function queryMetascore () {
         const actor = actorS || actorP;
-        if (account && actor && !loadingMetascore && !metascore) {
+        console.log()
+        if (account && actor && !loadingMetascore) {
             setLoadingMetascore(true);
             actor.getOverallMetascore(account.id)
             .then((r) => setMetascore(Number(r)))
@@ -82,7 +92,7 @@ export default function PlayerStatsProvider({ children }: PlayerStatsProviderPro
 
     function queryThresholds () {
         const actor = actorS || actorP;
-        if (actor && !loadingThresholds && !thresholds) {
+        if (actor && !loadingThresholds) {
             setLoadingThresholds(true);
             Promise.all([
                 actor.getPercentileMetascore(tierPercentiles.strong),
@@ -100,7 +110,7 @@ export default function PlayerStatsProvider({ children }: PlayerStatsProviderPro
 
     function queryTop3 () {
         const actor = actorS || actorP;
-        if (actor && !loadingTop3 && !topScores) {
+        if (actor && !loadingTop3) {
             setLoadingTop3(true);
             actor.getMetascores([BigInt(3)], [])
             .then((r) => setTopScores(r))

@@ -2,7 +2,7 @@ import React from 'react';
 import Styles from './leaderboard-panel.module.css';
 import Panel from 'components/panel/panel';
 import Neon from 'components/neon/neon';
-import Leaderboard, { fakeOverallEntry, LeaderboardEntry } from 'components/leaderboard/leaderboard';
+import Leaderboard, { LeaderboardEntry } from 'components/leaderboard/leaderboard';
 import { AnimatedRoute, AnimatedSwitch } from 'components/animated-route';
 import { useParams } from 'react-router-dom';
 import { useGames } from 'context/games';
