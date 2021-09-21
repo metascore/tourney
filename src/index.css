@@ -112,3 +112,10 @@ table {
 td {
   height: 50px;
 }
+
+hr {
+  box-sizing: border-box;
+  width: 100%;
+  border: 1px solid var(--colour-chrome-1);
+  outline: none;
+}

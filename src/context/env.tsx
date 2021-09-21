@@ -14,7 +14,7 @@ interface ContextProviderProps {
 
 const defaultState: EnvState = {
     metascorePrincipal: window.location.host.includes('localhost')
-    ? 'rwlgt-iiaaa-aaaaa-aaaaa-cai'
+    ? 'rrkah-fqaaa-aaaaa-aaaaq-cai'
     : window.location.host.includes('t6ury')
         ? PRODUCTION_PRINCIPAL
         : STAGING_PRINCIPAL,

@@ -43,18 +43,27 @@
     grid-column: 12;
 }
 
-.root.game .cell.name {
+/* .root.game .cell.name { */
+.root .cell.name {
     grid-column: 2/9;
 }
-.root.game .cell.score {
+/* .root.game .cell.score { */
+.root .cell.score {
     grid-column: 10/13;
 }
 
+.avatar {
+    border-radius: 50%;
+}
+
 .cell {
+    display: flex;
+    gap: 10px;
     font-size: 18px;
     grid-row: 1;
     align-items: center;
     text-align: center;
+    justify-content: center;
 }
 
 .smallLabel {

@@ -10,7 +10,7 @@ import Button from 'components/button/button';
 import { createActor } from '@metascore/query';
 import { HttpAgent } from '@dfinity/agent';
 import { useEnv } from 'context/env';
-import { Score__1 } from '@metascore/query/generated/metascore.did';
+import { DetailedScore, Score__1 } from '@metascore/query/generated/metascore.did';
 
 interface Props {
     children?: React.ReactNode;
@@ -27,17 +27,18 @@ export default function LeaderboardPanel ({ children } : Props) {
         return createActor(agent, metascorePrincipal);
     }, []);
 
-    const [scores, setScores] = React.useState<Score__1[]>([]);
+    const [scores, setScores] = React.useState<DetailedScore[]>([]);
 
     React.useEffect(() => {
-        metascore.getMetascores([BigInt(100)], [BigInt(0)]).then(setScores).catch(console.error)
+        metascore.getDetailedMetascores([BigInt(100)], [BigInt(0)]).then(setScores).catch(console.error)
     }, []);
 
     const data : LeaderboardEntry[] = scores.map((score, i) => ({
         index: i,
         player: {
-            accountId: score[0],
-            nick: undefined,
+            accountId: BigInt(score[0].id),
+            nick: score[0].alias[0],
+            avatar: score[0].avatar[0],
         },
         score: Number(score[1]),
     }));
@@ -68,15 +69,16 @@ function GameLeaderboardPanel () {
     const { games } = useGames();
     const { principal } = useParams<{principal?: string}>();
     const [p, game] = games.find(([p,]) => p.toString() === principal) || [];
-    const [scores, setScores] = React.useState<Score__1[]>([]);
+    const [scores, setScores] = React.useState<DetailedScore[]>([]);
     
-    React.useEffect(() => { p && metascore.getGameScores(p, [BigInt(100)], [BigInt(0)]).then(setScores).catch(console.error) }, [p]);
+    React.useEffect(() => { p && metascore.getDetailedGameScores(p, [BigInt(100)], [BigInt(0)]).then(setScores).catch(console.error) }, [p]);
 
     const data : LeaderboardEntry[] = scores.map((score, i) => ({
         index: i,
         player: {
-            accountId: score[0],
-            nick: undefined,
+            accountId: BigInt(score[0].id),
+            nick: score[0].alias[0],
+            avatar: score[0].avatar[0],
         },
         score: Number(score[1]),
     }));

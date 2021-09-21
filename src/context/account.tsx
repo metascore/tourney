@@ -9,6 +9,7 @@ interface AccountState {
     isConnected: boolean;
     disconnect: () => void;
     loading: { [key : string] : boolean };
+    setAccount: (acc : Account) => void;
 };
 
 interface ContextProviderProps {
@@ -19,6 +20,7 @@ const defaultState: AccountState = {
     isConnected: false,
     disconnect: () => {},
     loading: {},
+    setAccount: (acc : Account) => {},
 };
 
 export const accountContext = React.createContext<AccountState>(defaultState);
@@ -104,7 +106,8 @@ export default function AccountProvider({ children }: ContextProviderProps) {
             loading : {
                 account: loadingAccount,
                 multisig: loadingMultiSig,
-            }
+            },
+            setAccount
         }}
         children={children} 
     />
