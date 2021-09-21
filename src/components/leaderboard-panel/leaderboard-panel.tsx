@@ -7,9 +7,10 @@ import { AnimatedRoute, AnimatedSwitch } from 'components/animated-route';
 import { useParams } from 'react-router-dom';
 import { useGames } from 'context/games';
 import Button from 'components/button/button';
-import { createActor, Score } from '@metascore/query';
+import { createActor } from '@metascore/query';
 import { HttpAgent } from '@dfinity/agent';
 import { useEnv } from 'context/env';
+import { Score__1 } from '@metascore/query/generated/metascore.did';
 
 interface Props {
     children?: React.ReactNode;
@@ -17,14 +18,35 @@ interface Props {
 
 export default function LeaderboardPanel ({ children } : Props) {
 
-    const data = [...Array(100).keys()].map(fakeOverallEntry);
+    const { metascorePrincipal, metascoreHost } = useEnv();
+    
+    const metascore = React.useMemo(() => {
+        const agent = new HttpAgent({
+            host: metascoreHost
+        });
+        return createActor(agent, metascorePrincipal);
+    }, []);
+
+    const [scores, setScores] = React.useState<Score__1[]>([]);
+
+    React.useEffect(() => {
+        metascore.getMetascores([BigInt(100)], [BigInt(0)]).then(setScores).catch(console.error)
+    }, []);
+
+    const data : LeaderboardEntry[] = scores.map((score, i) => ({
+        index: i,
+        player: {
+            accountId: score[0],
+            nick: undefined,
+        },
+        score: Number(score[1]),
+    }));
 
     return (
         <div className={Styles.root}>
             <AnimatedSwitch>
                 <AnimatedRoute exact path="/" Component={() => <Panel>
                     <Neon>Tournament Leaderboard</Neon>
-                    <div className={Styles.flavor}>Last updated at... Next update at...</div>
                     <Leaderboard data={data} type={'overall'} />
                 </Panel>}/>
                 <AnimatedRoute path="/games/:principal" Component={GameLeaderboardPanel} />
@@ -46,15 +68,14 @@ function GameLeaderboardPanel () {
     const { games } = useGames();
     const { principal } = useParams<{principal?: string}>();
     const [p, game] = games.find(([p,]) => p.toString() === principal) || [];
-    const [scores, setScores] = React.useState<Score[]>([]);
+    const [scores, setScores] = React.useState<Score__1[]>([]);
     
     React.useEffect(() => { p && metascore.getGameScores(p, [BigInt(100)], [BigInt(0)]).then(setScores).catch(console.error) }, [p]);
 
     const data : LeaderboardEntry[] = scores.map((score, i) => ({
         index: i,
         player: {
-            principal: Object.values(score[0])[0].toString(),
-            wallet: score[0].hasOwnProperty('stoic') ? 'stoic' : 'plug',
+            accountId: score[0],
             nick: undefined,
         },
         score: Number(score[1]),

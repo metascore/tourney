@@ -1,11 +1,11 @@
 import React from 'react';
 import { useStoic } from './stoic';
 import { usePlug } from './plug';
-import { AccountRecord, AuthRequest } from '@metascore/query/generated/metascore.did';
+import { Account, AuthenticationRequest } from '@metascore/query/generated/metascore.did';
 
 
 interface AccountState {
-    account?: AccountRecord;
+    account?: Account;
     isConnected: boolean;
     disconnect: () => void;
 };
@@ -25,7 +25,7 @@ export const useAccount = () => React.useContext(accountContext);
 export default function AccountProvider({ children }: ContextProviderProps) {
 
     const [isConnected, setIsConnected] = React.useState<boolean>(defaultState.isConnected);
-    const [account, setAccount] = React.useState<AccountRecord>();
+    const [account, setAccount] = React.useState<Account>();
     const [loading, setLoading] = React.useState<{[key: string] : boolean}>();
 
     const { isConnected : connectedS, actor : actorS, principal : principalS } = useStoic();
@@ -44,7 +44,7 @@ export default function AccountProvider({ children }: ContextProviderProps) {
         if (principal && actor && !account && !loading?.account) {
             console.info(`Requesting Metascore account...`);
             setLoading(Object.assign({}, loading, { account : true }));
-            const authRequest : AuthRequest = {
+            const authRequest : AuthenticationRequest = {
                 // @ts-ignore
                 authenticate: {
                     [wallet]: principal
@@ -63,15 +63,17 @@ export default function AccountProvider({ children }: ContextProviderProps) {
             if (account.plugAddress.length === 0 || account.stoicAddress.length === 0) {
                 console.info(`Performing multisig wallet link...`);
                 setLoading(Object.assign({}, loading, { multisig : false }));
-                const stoicSig : AuthRequest = {
-                    link: {
-                        plug: principalP,
-                    },
+                const stoicSig : AuthenticationRequest = {
+                    link: [
+                        { plug: principalP, },
+                        { stoic: principalS, },
+                    ],
                 };
-                const plugSig : AuthRequest = {
-                    link: {
-                        stoic: principalS,
-                    },
+                const plugSig : AuthenticationRequest = {
+                    link: [
+                        { stoic: principalS, },
+                        { plug: principalP, },
+                    ],
                 };
                 console.info(`Signing with stoic...`);
                 actorS.authenticateAccount(stoicSig)
@@ -79,7 +81,7 @@ export default function AccountProvider({ children }: ContextProviderProps) {
                     console.info(`Signing with plug...`);
                     return actorP.authenticateAccount(plugSig);
                 }).then(r => {
-                    console.info(`Complete!`);
+                    console.info(`Complete!`, r);
                     //@ts-ignore
                     setAccount(r?.ok?.account);
                 })

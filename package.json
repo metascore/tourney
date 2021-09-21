@@ -15,7 +15,7 @@
     "@fontsource/inter": "^4.5.0",
     "@fontsource/space-mono": "^4.5.0",
     "@fontsource/vt323": "^4.5.0",
-    "@metascore/query": "^0.0.10",
+    "@metascore/query": "^0.0.11",
     "framer-motion": "^4.1.17",
     "ic-stoic-identity": "1.5.0",
     "react": "^17.0.0",

@@ -7,6 +7,10 @@
     flex-direction: column;
 }
 
+.title {
+    white-space: nowrap;
+}
+
 .root > * { /* Selector should capture panel */
     padding-right: 120px; /* Space for abs positioned badge */
 }
@@ -19,16 +23,17 @@
     flex-direction: column;
 }
 
-.badge {}
-
+.badge,
 .badgeUnranked {
     box-sizing: border-box;
     position: absolute;
     top: 50%;
     transform: translateY(-50px);
-
     width: 100px;
     height: 100px;
+}
+
+.badgeUnranked {
     background-color: var(--colour-chrome-1);
     border-radius: 50%;
     border: 1px solid var(--colour-chrome-1);

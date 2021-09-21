@@ -3,9 +3,10 @@ import Styles from './leaderboard.module.css';
 import { numberWithCommas } from 'components/utils';
 
 interface Player {
-    principal: string;
-    wallet: 'stoic' | 'plug';
+    accountId: BigInt;
     nick?: string;
+    avatar?: string;
+    flavor?: string;
 };
 
 export interface LeaderboardEntry {
@@ -64,10 +65,10 @@ function Entry ({gameEntry, overallEntry} : EntryProps) {
     if (!entry) return <></>;
     return <div className={Styles.row}>
         <div className={[Styles.cell, Styles.position].join(' ')}>#{entry.index + 1}</div>
-        <div className={[Styles.cell, Styles.name].join(' ')}>{entry.player.nick || entry.player.principal}</div>
+        <div className={[Styles.cell, Styles.name].join(' ')}>{entry.player.nick || 'Player #' + entry.player.accountId}</div>
         <div className={[Styles.cell, Styles.score].join(' ')}>{numberWithCommas(entry.score)}</div>
-        {overall ? <div className={[Styles.cell, Styles.gamesPlayed].join(' ')}>{(entry as OverallLeaderboardEntry).gamesPlayed} <div className={Styles.smallLabel}>Game{(entry as OverallLeaderboardEntry).gamesPlayed > 1 && 's'} Played</div></div> : ''}
-        {overall ? <div className={[Styles.cell, Styles.podiumFinishes].join(' ')}>{(entry as OverallLeaderboardEntry).podiumFinishes}<div className={Styles.smallLabel}>Podium Finish{(entry as OverallLeaderboardEntry).podiumFinishes > 1 && 'es'}</div></div> : ''}
+        {overall ? <div className={[Styles.cell, Styles.gamesPlayed].join(' ')}>{(entry as OverallLeaderboardEntry).gamesPlayed || '-'} <div className={Styles.smallLabel}>Game{(entry as OverallLeaderboardEntry).gamesPlayed > 1 && 's'} Played</div></div> : ''}
+        {overall ? <div className={[Styles.cell, Styles.podiumFinishes].join(' ')}>{(entry as OverallLeaderboardEntry).podiumFinishes || '-'}<div className={Styles.smallLabel}>Podium Finish{(entry as OverallLeaderboardEntry).podiumFinishes > 1 && 'es'}</div></div> : ''}
     </div>
 };
 
@@ -76,9 +77,8 @@ export function fakeEntry (i : number) : LeaderboardEntry {
         index: i,
         score: 100,
         player: {
-            principal: '...',
+            accountId: BigInt(1),
             nick: 'NICK',
-            wallet: 'stoic',
         }
     };
 };

@@ -5,6 +5,12 @@
     flex-direction: column;
 }
 
+.title {
+    font-size: 16px;
+}
+
+.title br { display: none; }
+
 .root > * {
     padding: 30px 20px 20px 20px;
 }

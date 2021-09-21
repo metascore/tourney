@@ -17,6 +17,7 @@ import Guide from 'screens/guide';
 import Compose from './context/compose';
 import Index from './screens';
 import EnvProvider from 'context/env';
+import PlayerStatsProvider from 'context/player-stats';
 
 
 export default function App() {
@@ -27,6 +28,7 @@ export default function App() {
         {order: 2, component: PlugProvider},
         {order: 3, component: GamesProvider},
         {order: 4, component: AccountProvider},
+        {order: 5, component: PlayerStatsProvider},
     ];
 
     return (
