@@ -195,6 +195,7 @@ function AccountEdit({
                     value={avatar}
                     onChange={(e) => setAvatar(e.currentTarget.value)}
                 />
+                <br /><small><em>Input a URL for an already hosted image.</em></small>
             </div>
             <div>
                 <h3>Alias</h3>
