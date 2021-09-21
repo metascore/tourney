@@ -8,6 +8,7 @@ interface AccountState {
     account?: Account;
     isConnected: boolean;
     disconnect: () => void;
+    loading: { [key : string] : boolean };
 };
 
 interface ContextProviderProps {
@@ -17,6 +18,7 @@ interface ContextProviderProps {
 const defaultState: AccountState = {
     isConnected: false,
     disconnect: () => {},
+    loading: {},
 };
 
 export const accountContext = React.createContext<AccountState>(defaultState);
@@ -26,7 +28,8 @@ export default function AccountProvider({ children }: ContextProviderProps) {
 
     const [isConnected, setIsConnected] = React.useState<boolean>(defaultState.isConnected);
     const [account, setAccount] = React.useState<Account>();
-    const [loading, setLoading] = React.useState<{[key: string] : boolean}>();
+    const [loadingAccount, setLoadingAccount] = React.useState<boolean>(false);
+    const [loadingMultiSig, setLoadingMultiSig] = React.useState<boolean>(false);
 
     const { isConnected : connectedS, actor : actorS, principal : principalS } = useStoic();
     const { isConnected : connectedP, actor : actorP, principal : principalP } = usePlug();
@@ -41,9 +44,9 @@ export default function AccountProvider({ children }: ContextProviderProps) {
         const actor = actorS || actorP;
         const wallet : 'stoic' | 'plug' = actor === actorS ? 'stoic' : 'plug';
         const principal = wallet === 'stoic' ? principalS : principalP;
-        if (principal && actor && !account && !loading?.account) {
+        if (principal && actor && !account && !loadingAccount) {
             console.info(`Requesting Metascore account...`);
-            setLoading(Object.assign({}, loading, { account : true }));
+            setLoadingAccount(true);
             const authRequest : AuthenticationRequest = {
                 // @ts-ignore
                 authenticate: {
@@ -55,14 +58,14 @@ export default function AccountProvider({ children }: ContextProviderProps) {
                 setAccount(resp?.ok?.account);
             })
             .finally(() => {
-                setLoading(Object.assign({}, loading, { account : false }));
+                setLoadingAccount(false);
             });
         };
         // If two wallets are connected and account has room, attempt to link the wallets
-        if (actorS && actorP && principalS && principalP && account && !loading?.multisig) {
+        if (actorS && actorP && principalS && principalP && account && !loadingMultiSig) {
             if (account.plugAddress.length === 0 || account.stoicAddress.length === 0) {
                 console.info(`Performing multisig wallet link...`);
-                setLoading(Object.assign({}, loading, { multisig : false }));
+                setLoadingMultiSig(false);
                 const stoicSig : AuthenticationRequest = {
                     link: [
                         { plug: principalP, },
@@ -87,7 +90,7 @@ export default function AccountProvider({ children }: ContextProviderProps) {
                 })
                 .catch(console.error)
                 .finally(() => {
-                    setLoading(Object.assign({}, loading, { multisig : false }));
+                    setLoadingMultiSig(false);
                 });
             };
         };
@@ -98,6 +101,10 @@ export default function AccountProvider({ children }: ContextProviderProps) {
             isConnected,
             disconnect,
             account,
+            loading : {
+                account: loadingAccount,
+                multisig: loadingMultiSig,
+            }
         }}
         children={children} 
     />

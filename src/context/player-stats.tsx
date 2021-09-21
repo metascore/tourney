@@ -22,11 +22,13 @@ interface PlayerStatsState {
         elite?: number,
     };
     topScores?: Score__1[];
+    loading: { [key : string] : boolean };
 };
 
 const defaultState : PlayerStatsState = {
     metascore: 0,
     tier: 0,
+    loading: {},
 };
 
 interface PlayerStatsProviderProps {
@@ -48,7 +50,10 @@ export default function PlayerStatsProvider({ children }: PlayerStatsProviderPro
     // const [percentile, setPercentile] = React.useState<number>();
     // const [ranking, setRanking] = React.useState<number>();
     
-    const [loading, setLoading] = React.useState<{ [key : string]: boolean}>({});
+    const [loadingMetascore, setLoadingMetascore] = React.useState<boolean>(false);
+    const [loadingThresholds, setLoadingThresholds] = React.useState<boolean>(false);
+    const [loadingTop3, setLoadingTop3] = React.useState<boolean>(false);
+
 
     React.useEffect(() => {
         const actor = actorS || actorP;
@@ -67,19 +72,18 @@ export default function PlayerStatsProvider({ children }: PlayerStatsProviderPro
 
     function queryMetascore () {
         const actor = actorS || actorP;
-        if (account && actor && !loading?.metascore && !metascore) {
-            setLoading(Object.assign({}, loading, {metascore: true}));
+        if (account && actor && !loadingMetascore && !metascore) {
+            setLoadingMetascore(true);
             actor.getOverallMetascore(account.id)
             .then((r) => setMetascore(Number(r)))
-            .catch(console.error)
-            .finally(() => setLoading(Object.assign({}, loading, {metascore: false})));
+            .finally(() => setLoadingMetascore(false));
         };
     };
 
     function queryThresholds () {
         const actor = actorS || actorP;
-        if (actor && !loading?.thresholds && !thresholds) {
-            setLoading(Object.assign({}, loading, {thresholds: true}));
+        if (actor && !loadingThresholds && !thresholds) {
+            setLoadingThresholds(true);
             Promise.all([
                 actor.getPercentileMetascore(tierPercentiles.strong),
                 actor.getPercentileMetascore(tierPercentiles.elite),
@@ -90,18 +94,18 @@ export default function PlayerStatsProvider({ children }: PlayerStatsProviderPro
                 elite: Number(elite),
             }))
             .catch(console.error)
-            .finally(() => setLoading(Object.assign({}, loading, {thresholds: false})));
+            .finally(() => setLoadingThresholds(false));
         };
     };
 
     function queryTop3 () {
         const actor = actorS || actorP;
-        if (actor && !loading?.topScores && !topScores) {
-            setLoading(Object.assign({}, loading, {topScores: true}));
+        if (actor && !loadingTop3 && !topScores) {
+            setLoadingTop3(true);
             actor.getMetascores([BigInt(3)], [])
             .then((r) => setTopScores(r))
             .catch(console.error)
-            .finally(() => setLoading(Object.assign({}, loading, {topScores: false})));
+            .finally(() => setLoadingTop3(false));
         };
     };
 
@@ -131,6 +135,11 @@ export default function PlayerStatsProvider({ children }: PlayerStatsProviderPro
             // ranking,
             thresholds,
             topScores,
+            loading: {
+                metascore: loadingMetascore,
+                top3: loadingTop3,
+                thresholds: loadingThresholds,
+            },
         }}
         children={children}
     />;

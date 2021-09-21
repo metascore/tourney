@@ -1,0 +1,10 @@
+.root {
+    width: 16px; height: 16px;
+    animation: spin 500ms infinite linear;
+    filter: drop-shadow(0 0 3px hsl(var(--colour-active-1)));
+}
+
+@keyframes spin {
+    from { transform: rotate(0deg)}
+    to { transform: rotate(360deg)}
+}

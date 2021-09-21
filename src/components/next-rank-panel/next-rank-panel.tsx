@@ -11,7 +11,7 @@ interface Props {
 
 export default function NextRankPanel ({ children } : Props) {
 
-    const { metascore, tier, thresholds, topScores } = usePlayerStats();
+    const { metascore, tier, thresholds, topScores, loading } = usePlayerStats();
     const nextTier = Math.min(tier + 1, ranks.length - 1);
     const nextRank = ranks[nextTier];
     const threshold = React.useMemo(() => {
@@ -30,7 +30,7 @@ export default function NextRankPanel ({ children } : Props) {
 
     return (
         <div className={Styles.root}>
-            <Panel>
+            <Panel loading={loading.thresholds || loading.top3}>
                 <Label>Next Rank</Label>
                 <h4 className={Styles.title}>{nextRank.title}</h4>
                 <Progress width={Math.round(metascore / Number(threshold) * 100)} />
@@ -44,6 +44,7 @@ export default function NextRankPanel ({ children } : Props) {
 };
 
 function formatBigScore (n : number) {
+    if (!n) return '';
     if (n === 0) {
         return <div className={Styles.score}>Zero</div>;
     } else if (n < 100_000) {

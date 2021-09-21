@@ -10,6 +10,7 @@ import logoSmall from 'assets/logo-small.svg';
 import stoic from 'assets/stoic.png';
 import plug from 'assets/plug.png';
 import { useAccount } from 'context/account';
+import Loader from 'components/loader/loader';
 
 export default function Head () {
 
@@ -60,7 +61,7 @@ function Connect () {
 };
 
 function Account () {
-    const { account } = useAccount();
+    const { account, loading } = useAccount();
     const { isConnected : isConnectedS, principal : principalS } = useStoic();
     const { isConnected : isConnectedP, principal : principalP } = usePlug();
     
@@ -79,16 +80,19 @@ function Account () {
     return (
         <Link to='/account'>
             <Button>
-                <img src={
-                    account?.avatar[0]
-                        ? account.avatar[0]
-                        : wallet === 'stoic'
-                            ? stoic
-                            : plug
-                    }
-                    width={18}
-                    height={18}
-                />
+                {loading?.account
+                    ? <div style={{marginRight: '5px'}}><Loader /></div>
+                    : <img src={
+                        account?.avatar[0]
+                            ? account.avatar[0]
+                            : wallet === 'stoic'
+                                ? stoic
+                                : plug
+                        }
+                        width={18}
+                        height={18}
+                    />
+                }
                 {
                     account?.alias[0]
                         ? account?.alias[0]

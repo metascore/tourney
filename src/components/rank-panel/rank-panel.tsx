@@ -37,11 +37,11 @@ export const ranks = [{
 }];
 
 export default function RankPanel ({ children } : Props) {
-    const { tier } = usePlayerStats();
+    const { tier, loading } = usePlayerStats();
 
     return (
         <div className={Styles.root}>
-            <Panel>
+            <Panel loading={loading.thresholds || loading.top3}>
                 <Label>Your Rank</Label>
                 <h4 className={Styles.title}>{ranks[tier].title}</h4>
 

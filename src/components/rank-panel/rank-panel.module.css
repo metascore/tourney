@@ -12,6 +12,7 @@
 }
 
 .root > * { /* Selector should capture panel */
+    position: static;
     padding-right: 120px; /* Space for abs positioned badge */
 }
 

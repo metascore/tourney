@@ -1,4 +1,6 @@
 .root {
+    position: relative;
+
     padding: 30px;
 
     flex: 1;
@@ -37,6 +39,18 @@
     letter-spacing: 5%;
     flex-shrink: 0;
     white-space: nowrap;
+}
+
+.loader {
+    position: absolute;
+    top: 5px; left: 5px;
+
+    opacity: 0;
+    transition: opacity 320ms var(--ease-sine);
+}
+
+.loading .loader {
+    opacity: 1;
 }
 
 @media (max-width: 1300px) {

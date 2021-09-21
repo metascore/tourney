@@ -8,10 +8,10 @@ interface Props {
 };
 
 export default function ScorePanel ({ children } : Props) {
-    const { metascore } = usePlayerStats();
+    const { metascore, loading } = usePlayerStats();
     return (
         <div className={Styles.root}>
-            <Panel>
+            <Panel loading={loading?.metascore}>
                 <Label>Your Metascore</Label>
                 <div className={Styles.zero}>{formatBigScore(metascore)}</div>
             </Panel>
