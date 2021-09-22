@@ -80,3 +80,14 @@ function formatBigScore (n : number) {
         return Math.round(n / 1_000_000_000_000) + ' T';
     };
 };
+
+export function UnrankedGame ({title} : {title: string}) {
+    return <div className={[
+        Styles.game
+    ].join(' ')}>
+        <div className={Styles.gameTitle}>{title}</div>
+        <div className={Styles.gameScore}>
+            ...
+        </div>
+    </div>
+};

@@ -14,6 +14,10 @@ import { attributes as WISAttrId, ReactComponent as WISPostId } from 'posts/what
 import { attributes as WISAttrVi, ReactComponent as WISPostVi } from 'posts/what-is-metascore-vi.md';
 import { attributes as PrizeAttr, ReactComponent as PrizePost } from 'posts/prize-pool.md';
 import { attributes as WinAttr, ReactComponent as WinPost } from 'posts/how-to-win.md';
+import WISOG from 'assets/og/what-is.webp';
+import SGOG from 'assets/og/guide.webp';
+import PrizeOG from 'assets/og/prize-pool.webp';
+import WinOG from 'assets/og/how-to-win.webp';
 
 
 export default function Guide () {
@@ -28,13 +32,13 @@ export default function Guide () {
                 </Panel>
                 <Panel wide>
                     <AnimatedSwitch>
-                        <AnimatedRoute path='/guide/how-to-win' Component={() => <Post title={(WinAttr as any).title} children={<WinPost />} />} />
-                        <AnimatedRoute path='/guide/prize-pool' Component={() => <Post title={(PrizeAttr as any).title} children={<PrizePost />} />} />
-                        <AnimatedRoute path='/guide/what-is-metascore' Component={() => <Post title={(WISAttr as any).title} children={<WISPost />} />} />
-                        <AnimatedRoute path='/guide/what-is-metascore-ru' Component={() => <Post title={(WISAttrRu as any).title} children={<WISPostRu />} />} />
-                        <AnimatedRoute path='/guide/what-is-metascore-id' Component={() => <Post title={(WISAttrId as any).title} children={<WISPostId />} />} />
-                        <AnimatedRoute path='/guide/what-is-metascore-vi' Component={() => <Post title={(WISAttrVi as any).title} children={<WISPostVi />} />} />
-                        <AnimatedRoute path='/guide' Component={() => <Post title={(SGAttr as any).title} children={<SGPost />} />} />
+                        <AnimatedRoute path='/guide/how-to-win' Component={() => <Post og={WinOG} title={(WinAttr as any).title} children={<WinPost />} />} />
+                        <AnimatedRoute path='/guide/prize-pool' Component={() => <Post og={PrizeOG} title={(PrizeAttr as any).title} children={<PrizePost />} />} />
+                        <AnimatedRoute path='/guide/what-is-metascore' Component={() => <Post og={WISOG} title={(WISAttr as any).title} children={<WISPost />} />} />
+                        <AnimatedRoute path='/guide/what-is-metascore-ru' Component={() => <Post og={WISOG} title={(WISAttrRu as any).title} children={<WISPostRu />} />} />
+                        <AnimatedRoute path='/guide/what-is-metascore-id' Component={() => <Post og={WISOG} title={(WISAttrId as any).title} children={<WISPostId />} />} />
+                        <AnimatedRoute path='/guide/what-is-metascore-vi' Component={() => <Post og={WISOG} title={(WISAttrVi as any).title} children={<WISPostVi />} />} />
+                        <AnimatedRoute path='/guide' Component={() => <Post og={SGOG} title={(SGAttr as any).title} children={<SGPost />} />} />
                     </AnimatedSwitch>
                 </Panel>
             </GridRow>

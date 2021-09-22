@@ -28,7 +28,7 @@ export default function Stats ({} : Props) {
         <div>{games.length} Games</div>
         <div>{players} Gamers</div>
         <div>{scores} High Scores</div>
-        <div>107 NFTs</div>
+        <div>100+ NFTs</div>
         <div>1 Champion</div>
     </div>
 };
