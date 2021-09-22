@@ -87,6 +87,7 @@ export default function AccountScreen() {
                             : <Button onClick={() => connect('stoic')}>
                                 Connect Stoic
                             </Button>}
+                            <small><em>Brave users: ensure shields is disabled.</em></small>
                     </div>
                     <hr />
                     <h2>Plug</h2>
