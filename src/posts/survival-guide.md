@@ -10,7 +10,7 @@ Metascore is a companion app to the DSCVR Season 2 Hackathon. Game developers su
     
 **When:** Hackathon submissions are open September 22-25. As soon as a game is released and added to Metascore, scores from that game will count toward your Metascore. We will announce a tournament closing date soon; expect a time shortly after submissions close.    
     
-**Where:** [metascore.app](https://metascore.app).    
+**Where:** [metascore.one](https://metascore.one).    
     
 **Why:** Our prize pool is currently worth over 100 ICP ([check ICP price](https://ic.rocks/).) Metascore is a community driven project, and participants will have a voice on the direction of future tournaments.    
     
