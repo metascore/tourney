@@ -49,6 +49,11 @@
     transition: opacity 320ms var(--ease-sine);
 }
 
+.loaderBottom {
+    bottom: 0; top: auto;
+    position: sticky;
+}
+
 .loading .loader {
     opacity: 1;
 }

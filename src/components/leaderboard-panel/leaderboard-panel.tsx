@@ -10,7 +10,7 @@ import Button from 'components/button/button';
 import { createActor } from '@metascore/query';
 import { HttpAgent } from '@dfinity/agent';
 import { useEnv } from 'context/env';
-import { DetailedScore, Score__1 } from '@metascore/query/generated/metascore.did';
+import { DetailedScore } from '@metascore/query/generated/metascore.did';
 
 interface Props {
     children?: React.ReactNode;
@@ -19,6 +19,13 @@ interface Props {
 export default function LeaderboardPanel ({ children } : Props) {
 
     const { metascorePrincipal, metascoreHost } = useEnv();
+
+    const [scores, setScores] = React.useState<DetailedScore[]>([]);
+    const [page, setPage] = React.useState<number>(1);
+    const [perPage, setPerPage] = React.useState<number>(50);
+    const [loading, setLoading] = React.useState<boolean>(false);
+
+    const offset = React.useMemo(() => (page - 1) * perPage, [page]);
     
     const metascore = React.useMemo(() => {
         const agent = new HttpAgent({
@@ -27,11 +34,24 @@ export default function LeaderboardPanel ({ children } : Props) {
         return createActor(agent, metascorePrincipal);
     }, []);
 
-    const [scores, setScores] = React.useState<DetailedScore[]>([]);
+    React.useEffect(() => {
+        const perPage = window.localStorage.getItem('leaderboardPerPage');
+        if (perPage) {
+            setPerPage(parseInt(perPage));
+        };
+    }, []);
 
     React.useEffect(() => {
-        metascore.getDetailedMetascores([BigInt(100)], [BigInt(0)]).then(setScores).catch(console.error)
-    }, []);
+        window.localStorage.setItem('leaderboardPerPage', `${perPage}`)
+    }, [perPage]);
+
+    React.useEffect(() => {
+        setLoading(true)
+        metascore.getDetailedMetascores([BigInt(perPage)], [BigInt(offset)])
+        .then(setScores)
+        .catch(console.error)
+        .finally(() => setLoading(false));
+    }, [page, perPage]);
 
     const data : LeaderboardEntry[] = scores.map((score, i) => ({
         index: i,
@@ -46,9 +66,17 @@ export default function LeaderboardPanel ({ children } : Props) {
     return (
         <div className={Styles.root}>
             <AnimatedSwitch>
-                <AnimatedRoute exact path="/" Component={() => <Panel>
+                <AnimatedRoute exact path="/" Component={() => <Panel loaderBottom loading={loading}>
                     <Neon>Tournament Leaderboard</Neon>
-                    <Leaderboard data={data} type={'overall'} />
+                    <Leaderboard data={data} offset={offset} type={'overall'} />
+                    <div style={{display: 'flex', justifyContent: 'center', gap: '10px'}}>
+                        {page > 1 && <Button onClick={() => setPage(page - 1)}>
+                            Prev
+                        </Button>}
+                        {data.length === perPage && <Button onClick={() => setPage(page + 1)}>
+                            Next
+                        </Button>}
+                    </div>
                 </Panel>}/>
                 <AnimatedRoute path="/games/:principal" Component={GameLeaderboardPanel} />
             </AnimatedSwitch>
@@ -59,6 +87,17 @@ export default function LeaderboardPanel ({ children } : Props) {
 function GameLeaderboardPanel () {
 
     const { metascorePrincipal, metascoreHost } = useEnv();
+    const { games } = useGames();
+    const { principal } = useParams<{principal?: string}>();
+
+    const [p, game] = games.find(([p,]) => p.toString() === principal) || [];
+
+    const [scores, setScores] = React.useState<DetailedScore[]>([]);
+    const [page, setPage] = React.useState<number>(1);
+    const [perPage, setPerPage] = React.useState<number>(50);
+    const [loading, setLoading] = React.useState<boolean>(false);
+
+    const offset = React.useMemo(() => (page - 1) * perPage, [page]);
     
     const metascore = React.useMemo(() => {
         const agent = new HttpAgent({
@@ -66,12 +105,25 @@ function GameLeaderboardPanel () {
         });
         return createActor(agent, metascorePrincipal);
     }, []);
-    const { games } = useGames();
-    const { principal } = useParams<{principal?: string}>();
-    const [p, game] = games.find(([p,]) => p.toString() === principal) || [];
-    const [scores, setScores] = React.useState<DetailedScore[]>([]);
+
+    React.useEffect(() => {
+        const perPage = window.localStorage.getItem('leaderboardPerPage');
+        if (perPage) {
+            setPerPage(parseInt(perPage));
+        };
+    }, []);
+
+    React.useEffect(() => {
+        window.localStorage.setItem('leaderboardPerPage', `${perPage}`)
+    }, [perPage]);
     
-    React.useEffect(() => { p && metascore.getDetailedGameScores(p, [BigInt(100)], [BigInt(0)]).then(setScores).catch(console.error) }, [p]);
+    React.useEffect(() => {
+        setLoading(true)
+        p && metascore.getDetailedGameScores(p, [BigInt(perPage)], [BigInt(offset)])
+        .then(setScores)
+        .catch(console.error)
+        .finally(() => setLoading(false));
+    }, [p, page, perPage]);
 
     const data : LeaderboardEntry[] = scores.map((score, i) => ({
         index: i,
@@ -84,10 +136,18 @@ function GameLeaderboardPanel () {
     }));
 
 
-    return <Panel>
+    return <Panel loaderBottom loading={loading}>
         <Neon>{game?.name}</Neon>
         <div className={Styles.flavor}>{game?.flavorText}</div>
         <a className={Styles.play} href={game?.playUrl} target="_blank"><Button>Play {game?.name}</Button></a>
-        <Leaderboard data={data} type={'game'} />
+        <Leaderboard offset={offset} data={data} type={'game'} />
+        <div style={{display: 'flex', justifyContent: 'center', gap: '10px'}}>
+            {page > 1 && <Button onClick={() => setPage(page - 1)}>
+                Prev
+            </Button>}
+            {data.length === perPage && <Button onClick={() => setPage(page + 1)}>
+                Next
+            </Button>}
+        </div>
     </Panel>
 };

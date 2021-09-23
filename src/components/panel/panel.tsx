@@ -9,9 +9,10 @@ interface Props {
     wrapContent?: boolean;
     wide?: boolean;
     loading?: boolean;
+    loaderBottom?: boolean;
 };
 
-export default function Panel ({ children, row, size, wrapContent, wide, loading } : Props) {
+export default function Panel ({ loaderBottom, children, row, size, wrapContent, wide, loading } : Props) {
     return (
         <div className={[
             Styles.root,
@@ -22,7 +23,10 @@ export default function Panel ({ children, row, size, wrapContent, wide, loading
             loading && Styles.loading,
         ].join(' ')}>
             {children}
-            <div className={Styles.loader}><Loader /></div>
+            <div className={[
+                Styles.loader,
+                loaderBottom ? Styles.loaderBottom :'',
+            ].join(' ')}><Loader /></div>
         </div>
     );
 };

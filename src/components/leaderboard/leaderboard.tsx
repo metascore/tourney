@@ -23,13 +23,15 @@ export interface OverallLeaderboardEntry extends LeaderboardEntry {
 interface Props {
     type: 'overall' | 'game';
     data : (LeaderboardEntry | OverallLeaderboardEntry)[];
+    offset?: number;
 };
 
-export default function Leaderboard ({ data, type } : Props) {
+export default function Leaderboard ({ data, type, offset } : Props) {
     
     return <div className={[Styles.root, Styles[type]].join(' ')}>
         <Head type={type} />
         {data.map((entry, i) => <Entry
+            offset={offset}
             key={`${i}entry`}
             gameEntry={type === 'game' ? entry as LeaderboardEntry : undefined}
             overallEntry={type === 'overall' ? entry as OverallLeaderboardEntry : undefined}
@@ -57,14 +59,15 @@ function Head ({ type } : HeadProps) {
 interface EntryProps {
     gameEntry?: LeaderboardEntry;
     overallEntry?: OverallLeaderboardEntry;
+    offset?: number;
 }
 
-function Entry ({gameEntry, overallEntry} : EntryProps) {
+function Entry ({gameEntry, overallEntry, offset} : EntryProps) {
     const entry = gameEntry || overallEntry;
     const overall = overallEntry !== undefined;
     if (!entry) return <></>;
     return <div className={Styles.row}>
-        <div className={[Styles.cell, Styles.position].join(' ')}>#{entry.index + 1}</div>
+        <div className={[Styles.cell, Styles.position].join(' ')}>#{entry.index + 1 + (offset || 0)}</div>
         <div className={[Styles.cell, Styles.name].join(' ')}>
             <img
                 className={Styles.avatar}
