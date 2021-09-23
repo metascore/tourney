@@ -70,16 +70,16 @@ export default function PlayerStatsProvider({ children }: PlayerStatsProviderPro
         
     }, [actorS, actorP, account]);
     
-    React.useEffect(() => {
-        const i = setInterval(() => {
-            if (document.hasFocus()) {
-                queryMetascore();
-                queryThresholds();
-                queryTop3();
-            };
-        }, 15_000);
-        return () => clearInterval(i);
-    }, [queryMetascore, queryThresholds, queryTop3]);
+    // React.useEffect(() => {
+    //     const i = setInterval(() => {
+    //         if (document.hasFocus()) {
+    //             queryMetascore();
+    //             queryThresholds();
+    //             queryTop3();
+    //         };
+    //     }, 15_000);
+    //     return () => clearInterval(i);
+    // }, [queryMetascore, queryThresholds, queryTop3]);
 
     function queryMetascore () {
         const actor = actorS || actorP;
