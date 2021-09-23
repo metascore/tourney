@@ -72,9 +72,11 @@ export default function PlayerStatsProvider({ children }: PlayerStatsProviderPro
     
     React.useEffect(() => {
         const i = setInterval(() => {
-            queryMetascore();
-            queryThresholds();
-            queryTop3();
+            if (document.hasFocus()) {
+                queryMetascore();
+                queryThresholds();
+                queryTop3();
+            };
         }, 15_000);
         return () => clearInterval(i);
     }, [queryMetascore, queryThresholds, queryTop3]);
