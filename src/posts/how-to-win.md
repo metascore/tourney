@@ -6,7 +6,7 @@ Your score in each game contributes to your overall “Metascore,” and your me
 
 ## Scoring Algorithm
 
-*tl;dr: Each game rewards 1 trillion points: 500 billion based on performance, 500 billion based on podium positions.*
+*tl;dr: Each game rewards 1 trillion points per player: 500 billion based on performance, 500 billion based on podium positions.*
 
 Here's how scoring works. Different games can give wildly different scores, so we first normalize scores from each game, so each game can give a maximum of 1,000,000,000,000 (1 Trillion) points. This is done by comparing your score to the top score in the game.
 
@@ -21,7 +21,7 @@ Here's how many points you get for being on the podium:
 
 - The highest score in the game receives 1,000,000,000,000 (1T) points.
 - The second highest receives 50% of the podium bonus, for a total of 750,000,000,00 (.75T) points.
-- Third highest receives 25% of the podmium bonus, for a total of .5T points.
+- Third highest receives 25% of the podmium bonus, for a total of .625T points.
 
 Keep in mind that if the high score changes, your score will change, too. You'll need to keep a close eye on the leaderboard!
 
