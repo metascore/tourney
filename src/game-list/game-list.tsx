@@ -87,7 +87,7 @@ export function UnrankedGame ({title} : {title: string}) {
     ].join(' ')}>
         <div className={Styles.gameTitle}>{title}</div>
         <div className={Styles.gameScore}>
-            ...
+
         </div>
     </div>
 };

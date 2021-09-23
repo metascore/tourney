@@ -10,13 +10,13 @@ interface Props {
     children?: React.ReactNode;
 };
 
-// const unrankedGames : {link: string; title: string} = [
+const unrankedGames : {link: string; title: string}[] = [
     // https://h5aet-waaaa-aaaab-qaamq-cai.raw.ic0.app/post/111154/official-poll-dscvr-hackathon-season-1-the-game
-    // {
-    //     link: 'https://cieun-eiaaa-aaaad-qak6a-cai.raw.ic0.app/',
-    //     title: 'Motoko Runner',
-    // }
-// ];
+    {
+        link: 'https://lm5fh-ayaaa-aaaah-aafua-cai.raw.ic0.app/',
+        title: 'Texas Holdem',
+    }
+];
 
 export default function GamesPanel ({ children } : Props) {
 
@@ -38,11 +38,11 @@ export default function GamesPanel ({ children } : Props) {
                 <div className={Styles.gameHead}>
                     <h3>Unranked Games</h3>
                 </div>
-                {/* <GameList>
+                <GameList>
                     {unrankedGames?.map(({link, title}, i) => <a href={link} target="_blank" key={`${i}gamelink`} className={Styles.link}>
                         <UnrankedGame title={title} />
                     </a>)}
-                </GameList> */}
+                </GameList>
             </Panel>
         </div>
     );
