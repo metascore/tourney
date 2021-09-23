@@ -15,6 +15,10 @@ const unrankedGames : {link: string; title: string}[] = [
     {
         link: 'https://lm5fh-ayaaa-aaaah-aafua-cai.raw.ic0.app/',
         title: 'Texas Holdem',
+    },
+    {
+        link: 'https://6jgp5-riaaa-aaaai-aapuq-cai.raw.ic0.app',
+        title: 'Tiny Racing',
     }
 ];
 
