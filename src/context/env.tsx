@@ -14,12 +14,12 @@ interface ContextProviderProps {
 
 const defaultState: EnvState = {
     metascorePrincipal: window.location.host.includes('localhost')
-    ? PRODUCTION_PRINCIPAL
+    ? 'rrkah-fqaaa-aaaaa-aaaaq-cai'
     : window.location.host.includes('t6ury')
         ? PRODUCTION_PRINCIPAL
         : STAGING_PRINCIPAL,
     metascoreHost: window.location.host.includes('localhost')
-        ? `https://raw.ic0.app`
+        ? `http://localhost:8000`
         : 'https://raw.ic0.app',
     isLocal: false,
 };
