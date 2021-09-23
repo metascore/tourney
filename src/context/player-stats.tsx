@@ -77,11 +77,10 @@ export default function PlayerStatsProvider({ children }: PlayerStatsProviderPro
             queryTop3();
         }, 15_000);
         return () => clearInterval(i);
-    }, []);
+    }, [queryMetascore, queryThresholds, queryTop3]);
 
     function queryMetascore () {
         const actor = actorS || actorP;
-        console.log()
         if (account && actor && !loadingMetascore) {
             setLoadingMetascore(true);
             actor.getOverallMetascore(account.id)
