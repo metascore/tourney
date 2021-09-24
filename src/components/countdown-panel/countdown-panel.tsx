@@ -3,7 +3,7 @@ import Styles from './countdown-panel.module.css';
 import Panel, { Label } from 'components/panel/panel';
 
 const start = new Date ('September 22 2021 00:00:00 PST').getTime();
-const end = new Date ('September 25 2021 00:00:00 PST').getTime();
+export const end = new Date ('September 25 2021 00:00:00 PST').getTime();
 
 interface Props {
     children?: React.ReactNode;
