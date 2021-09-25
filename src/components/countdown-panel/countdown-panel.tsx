@@ -54,6 +54,9 @@ function pad(n: number) { return n < 10 ? `0${n}` : `${n}` }
 export function countdownFormat(countdown: number) : string {
     // This expects a number representing a duration of time remaining.
     // Returns a string "0:00:00:00"
+    if (countdown <= 0) {
+        return "0:00:00:00";
+    }
     const t = countdown / 1000;
     const d = Math.floor(t / (60 * 60 * 24));
     const h = Math.floor(t % (60 * 60 * 24) / (60 * 60));

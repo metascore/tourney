@@ -29,15 +29,15 @@ export default function GamesPanel ({ children } : Props) {
     return (
         <div className={Styles.root}>
             <Panel loading={loading}>
-                <Link to="/"><Button>Tournament Leaderboard</Button></Link>
+                {/* <Link to="/"><Button>Tournament Leaderboard</Button></Link> */}
                 <div className={Styles.gameHead}>
                     <h3>Ranked Games ({games.length})</h3>
-                    <Label>Your Points</Label>
+                    {/* <Label>Your Points</Label> */}
                 </div>
                 <GameList>
-                    {games?.map(([principal, game], i) => <Link key={`${i}gamelink`} className={Styles.link} to={`/games/${principal}`}>
+                    {games?.map(([principal, game], i) => <a href={game?.playUrl} target="_blank" key={`${i}gamelink`} className={Styles.link}>
                         <Game gamep={principal} title={game.name} />
-                    </Link>)}
+                    </a>)}
                 </GameList>
                 <div className={Styles.gameHead}>
                     <h3>Unranked Games</h3>

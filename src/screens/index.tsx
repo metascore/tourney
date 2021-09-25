@@ -13,10 +13,6 @@ import Grace from './grace';
 
 export default function Index() {
 
-    if (new Date().getTime() > end) {
-        return <Grace />
-    }
-
     return (
         <div className={Styles.grid}>
             <Helmet>
@@ -28,7 +24,9 @@ export default function Index() {
             <div className={Styles.rank}><RankPanel /></div>
             <div className={Styles.next}><NextRankPanel /></div>
             <div className={Styles.games}><GamesPanel /></div>
-            <div className={Styles.leaderboard}><LeaderboardPanel /></div>
+            <div className={Styles.leaderboard}>
+            {new Date().getTime() > end ? <Grace /> : <LeaderboardPanel />}
+            </div>
         </div>
     );
 
