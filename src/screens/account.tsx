@@ -1,4 +1,4 @@
-import { Player } from '@metascore/query';
+import { createAccountsActor, ACCOUNTS_PRINCIPAL } from '@metascore/query';
 import { Account } from '@metascore/query/generated/metascore.did';
 import Button from 'components/button/button';
 import Grid, { GridRow } from 'components/grid/grid';
@@ -12,8 +12,10 @@ export default function AccountScreen() {
 
     const [done, setDone] = React.useState<boolean>(false);
 
-    const { actor: actorS, isConnected: isConnectedS, principal: principalS, disconnect: disconnectS, connect: connectS } = useStoic();
-    const { actor: actorP, isConnected: isConnectedP, principal: principalP, disconnect: disconnectP, connect: connectP } = usePlug();
+    const { agent : agentS, isConnected: isConnectedS, principal: principalS, disconnect: disconnectS, connect: connectS } = useStoic();
+    const { agent : agentP, isConnected: isConnectedP, principal: principalP, disconnect: disconnectP, connect: connectP } = usePlug();
+    const actorS = React.useMemo(() => agentS ? createAccountsActor(agentS, ACCOUNTS_PRINCIPAL) : undefined, [agentS]);
+    const actorP = React.useMemo(() => agentP ? createAccountsActor(agentP, ACCOUNTS_PRINCIPAL) : undefined, [agentP]);
     const { account, disconnect: disconnectA, loading : loadingA, setAccount : setAccountA } = useAccount();
 
     const [alias, setAlias] = React.useState(account?.alias);
@@ -157,7 +159,7 @@ function AccountView({account, edit}: {account?: Account, edit: () => void}) {
                     : '-'
                 }
             </div>
-            {account?.id && <Button onClick={() => edit()}>Edit</Button>}
+            {account?.id !== undefined && <Button onClick={() => edit()}>Edit</Button>}
         </div>
     </>
 };

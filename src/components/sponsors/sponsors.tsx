@@ -4,7 +4,7 @@ import ImgToniq from 'assets/sponsors/toniq.webp';
 import ImgICPuppies from 'assets/sponsors/icpuppies.webp';
 import ImgMotokoSchool from 'assets/sponsors/motoko-school.webp';
 import ImgMyArtBar from 'assets/sponsors/myartbar.webp';
-import ImgNFTStudio from 'assets/sponsors/nft-studio.webp';
+import ImgAstronauts from 'assets/sponsors/astronauts.jpeg';
 import ImgPokedstudio from 'assets/sponsors/pokedstudio.webp';
 import ImgTheSword from 'assets/sponsors/thesword.webp';
 import ImgVisions from 'assets/sponsors/visions.webp';
@@ -49,9 +49,9 @@ export default function Sponsors ({} : Props) {
         title: 'The Sword NFT',
         link: 'https://twitter.com/TheSwordNft',
     }, {
-        image: ImgNFTStudio,
-        title: 'NFT Studio Poland',
-        link: 'https://twitter.com/NFTStudioPoland',
+        image: ImgAstronauts,
+        title: 'Internet Astronauts',
+        link: 'https://twitter.com/interastrosc',
     }, {
         image: ImgICPSquad,
         title: 'ICPSquad',

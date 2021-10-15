@@ -7,7 +7,7 @@ import { AnimatedRoute, AnimatedSwitch } from 'components/animated-route';
 import { useParams } from 'react-router-dom';
 import { useGames } from 'context/games';
 import Button from 'components/button/button';
-import { createActor } from '@metascore/query';
+import { createMetascoreActor } from '@metascore/query';
 import { HttpAgent } from '@dfinity/agent';
 import { useEnv } from 'context/env';
 import { DetailedScore } from '@metascore/query/generated/metascore.did';
@@ -31,7 +31,7 @@ export default function LeaderboardPanel ({ children } : Props) {
         const agent = new HttpAgent({
             host: metascoreHost
         });
-        return createActor(agent, metascorePrincipal);
+        return createMetascoreActor(agent, metascorePrincipal);
     }, []);
 
     React.useEffect(() => {
@@ -45,13 +45,13 @@ export default function LeaderboardPanel ({ children } : Props) {
         window.localStorage.setItem('leaderboardPerPage', `${perPage}`)
     }, [perPage]);
 
-    React.useEffect(() => {
-        setLoading(true)
-        metascore.getDetailedMetascores([BigInt(perPage)], [BigInt(offset)])
-        .then(setScores)
-        .catch(console.error)
-        .finally(() => setLoading(false));
-    }, [page, perPage]);
+    // React.useEffect(() => {
+    //     setLoading(true)
+    //     metascore.getDetailedMetascores([BigInt(perPage)], [BigInt(offset)])
+    //     .then(setScores)
+    //     .catch(console.error)
+    //     .finally(() => setLoading(false));
+    // }, [page, perPage]);
 
     const data : LeaderboardEntry[] = scores.map((score, i) => ({
         index: i,
@@ -103,7 +103,7 @@ function GameLeaderboardPanel () {
         const agent = new HttpAgent({
             host: metascoreHost
         });
-        return createActor(agent, metascorePrincipal);
+        return createMetascoreActor(agent, metascorePrincipal);
     }, []);
 
     React.useEffect(() => {

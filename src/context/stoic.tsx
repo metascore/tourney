@@ -2,7 +2,7 @@ import React from 'react';
 import { StoicIdentity } from 'ic-stoic-identity';
 import { Principal } from '@dfinity/principal';
 import { ActorSubclass, HttpAgent, Identity } from '@dfinity/agent';
-import { createActor, MetascoreQuery } from '@metascore/query';
+import { createMetascoreActor, MetascoreQuery } from '@metascore/query';
 import { useEnv } from './env';
 
 
@@ -12,6 +12,7 @@ interface StoicState {
     isConnected: boolean;
     principal?: Principal;
     actor?: ActorSubclass<MetascoreQuery>;
+    agent?: HttpAgent;
 };
 
 interface ContextProviderProps {
@@ -50,6 +51,7 @@ export default function StoicProvider({ children }: ContextProviderProps) {
     const [isConnected, setIsConnected] = React.useState<boolean>(defaultState.isConnected);
     const [principal, setPrincipal] = React.useState<Principal>();
     const [actor, setActor] = React.useState<ActorSubclass<MetascoreQuery>>();
+    const [agent, setAgent] = React.useState<HttpAgent>();
 
     React.useEffect(() => {
         const sessionIsConnected = window.sessionStorage.getItem('stoicIsConnected') === 'true';
@@ -66,10 +68,11 @@ export default function StoicProvider({ children }: ContextProviderProps) {
             host: metascoreHost,
         });
         if (isLocal) agent.fetchRootKey();
-        const actor = createActor(agent, metascorePrincipal);
+        const actor = createMetascoreActor(agent, metascorePrincipal);
         setIsConnected(true);
         setPrincipal(identity.getPrincipal());
         setActor(actor);
+        setAgent(agent);
         window.sessionStorage.setItem('stoicIsConnected', 'true');
         window.sessionStorage.setItem('stoicPrincipal', identity.getPrincipal().toText());
     };
@@ -80,7 +83,8 @@ export default function StoicProvider({ children }: ContextProviderProps) {
             disconnect,
             isConnected,
             principal,
-            actor
+            actor,
+            agent,
         }}
         children={children} 
     />

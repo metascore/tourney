@@ -1,5 +1,5 @@
 import { HttpAgent } from '@dfinity/agent';
-import { createActor, PRODUCTION_PRINCIPAL, STAGING_PRINCIPAL } from '@metascore/query';
+import { createMetascoreActor, PRODUCTION_PRINCIPAL, STAGING_PRINCIPAL } from '@metascore/query';
 import { useEnv } from 'context/env';
 import { useGames } from 'context/games';
 import React from 'react';
@@ -14,7 +14,7 @@ export default function Stats ({} : Props) {
         const agent = new HttpAgent({
             host: metascoreHost
         });
-        return createActor(agent, metascorePrincipal);
+        return createMetascoreActor(agent, metascorePrincipal);
     }, []);
     const [players, setPlayers] = React.useState<number>()
     const [scores, setScores] = React.useState<number>()

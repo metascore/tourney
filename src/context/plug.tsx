@@ -1,7 +1,7 @@
 import React from 'react';
-import { ActorSubclass } from '@dfinity/agent';
+import { ActorSubclass, HttpAgent } from '@dfinity/agent';
 import { Principal } from '@dfinity/principal';
-import { MetascoreQuery, createActor } from '@metascore/query';
+import { MetascoreQuery, createMetascoreActor } from '@metascore/query';
 import { useEnv } from './env';
 
 
@@ -11,6 +11,7 @@ interface PlugState {
     isConnected: boolean;
     principal?: Principal;
     actor?: ActorSubclass<MetascoreQuery>;
+    agent?: HttpAgent;
 };
 
 interface PlugProviderProps {
@@ -35,6 +36,7 @@ export default function PlugProvider({ children }: PlugProviderProps) {
     const [isConnected, setIsConnected] = React.useState<boolean>(DefaultState.isConnected);
     const [principal, setPrincipal] = React.useState<Principal>();
     const [actor, setActor] = React.useState<ActorSubclass<MetascoreQuery>>();
+    const [agent, setAgent] = React.useState<HttpAgent>();
 
     async function connect () {
         // If the user doesn't have plug, send them to get it!
@@ -95,12 +97,13 @@ export default function PlugProvider({ children }: PlugProviderProps) {
         const agent = await window.ic.plug.agent;
         if (isLocal) agent.fetchRootKey();
         const principal = await agent.getPrincipal();
-        const actor = createActor(agent, metascorePrincipal);
+        const actor = createMetascoreActor(agent, metascorePrincipal);
         window.sessionStorage.setItem('plugIsConnected', 'true');
         window.sessionStorage.setItem('plugPrincipal', principal.toText());
         setIsConnected(true);
         setPrincipal(principal);
         setActor(actor);
+        setAgent(agent);
     };
 
     return <PlugContext.Provider
@@ -110,6 +113,7 @@ export default function PlugProvider({ children }: PlugProviderProps) {
             principal,
             isConnected,
             actor,
+            agent,
         }}
         children={children}
     />;

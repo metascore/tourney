@@ -55,20 +55,20 @@ export default function PlayerStatsProvider({ children }: PlayerStatsProviderPro
     const [loadingTop3, setLoadingTop3] = React.useState<boolean>(false);
 
 
-    React.useEffect(() => {
-        const actor = actorS || actorP;
+    // React.useEffect(() => {
+    //     const actor = actorS || actorP;
 
-        // Clear player state if actor is disconnected and return
-        if (!actor || !account) {
-            setMetascore(0);
-            return;
-        };
+    //     // Clear player state if actor is disconnected and return
+    //     if (!actor || !account) {
+    //         setMetascore(0);
+    //         return;
+    //     };
 
-        queryMetascore();
-        queryThresholds();
-        queryTop3();
+    //     queryMetascore();
+    //     queryThresholds();
+    //     queryTop3();
         
-    }, [actorS, actorP, account]);
+    // }, [actorS, actorP, account]);
     
     // React.useEffect(() => {
     //     const i = setInterval(() => {
@@ -81,44 +81,44 @@ export default function PlayerStatsProvider({ children }: PlayerStatsProviderPro
     //     return () => clearInterval(i);
     // }, [queryMetascore, queryThresholds, queryTop3]);
 
-    function queryMetascore () {
-        const actor = actorS || actorP;
-        if (account && actor && !loadingMetascore) {
-            setLoadingMetascore(true);
-            actor.getOverallMetascore(account.id)
-            .then((r) => setMetascore(Number(r)))
-            .finally(() => setLoadingMetascore(false));
-        };
-    };
+    // function queryMetascore () {
+    //     const actor = actorS || actorP;
+    //     if (account && actor && !loadingMetascore) {
+    //         setLoadingMetascore(true);
+    //         actor.getOverallMetascore(account.id)
+    //         .then((r) => setMetascore(Number(r)))
+    //         .finally(() => setLoadingMetascore(false));
+    //     };
+    // };
 
-    function queryThresholds () {
-        const actor = actorS || actorP;
-        if (actor && !loadingThresholds) {
-            setLoadingThresholds(true);
-            Promise.all([
-                actor.getPercentileMetascore(tierPercentiles.strong),
-                actor.getPercentileMetascore(tierPercentiles.elite),
-            ])
-            .then(([strong, elite]) => setThresholds({
-                gamer: 0,
-                strong: Number(strong),
-                elite: Number(elite),
-            }))
-            .catch(console.error)
-            .finally(() => setLoadingThresholds(false));
-        };
-    };
+    // function queryThresholds () {
+    //     const actor = actorS || actorP;
+    //     if (actor && !loadingThresholds) {
+    //         setLoadingThresholds(true);
+    //         Promise.all([
+    //             actor.getPercentileMetascore(tierPercentiles.strong),
+    //             actor.getPercentileMetascore(tierPercentiles.elite),
+    //         ])
+    //         .then(([strong, elite]) => setThresholds({
+    //             gamer: 0,
+    //             strong: Number(strong),
+    //             elite: Number(elite),
+    //         }))
+    //         .catch(console.error)
+    //         .finally(() => setLoadingThresholds(false));
+    //     };
+    // };
 
-    function queryTop3 () {
-        const actor = actorS || actorP;
-        if (actor && !loadingTop3) {
-            setLoadingTop3(true);
-            actor.getMetascores([BigInt(3)], [])
-            .then((r) => setTopScores(r))
-            .catch(console.error)
-            .finally(() => setLoadingTop3(false));
-        };
-    };
+    // function queryTop3 () {
+    //     const actor = actorS || actorP;
+    //     if (actor && !loadingTop3) {
+    //         setLoadingTop3(true);
+    //         actor.getMetascores([BigInt(3)], [])
+    //         .then((r) => setTopScores(r))
+    //         .catch(console.error)
+    //         .finally(() => setLoadingTop3(false));
+    //     };
+    // };
 
     const tier : PlayerStatsState['tier'] = React.useMemo(() => {
         if (!topScores || !account || !thresholds || !thresholds?.elite || !thresholds?.strong) return 0;

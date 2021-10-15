@@ -25,7 +25,7 @@ export default function Index() {
             <div className={Styles.next}><NextRankPanel /></div>
             <div className={Styles.games}><GamesPanel /></div>
             <div className={Styles.leaderboard}>
-            {new Date().getTime() > end ? <Grace /> : <LeaderboardPanel />}
+                <LeaderboardPanel />
             </div>
         </div>
     );

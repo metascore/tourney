@@ -1,7 +1,11 @@
 import React from 'react';
 import { useStoic } from './stoic';
 import { usePlug } from './plug';
+import { Actor } from '@dfinity/agent';
 import { Account, AuthenticationRequest } from '@metascore/query/generated/metascore.did';
+import { createAccountsActor } from '@metascore/query';
+
+const AccountsPrincipal = 'upsxs-oyaaa-aaaah-qcaua-cai';
 
 
 interface AccountState {
@@ -33,8 +37,11 @@ export default function AccountProvider({ children }: ContextProviderProps) {
     const [loadingAccount, setLoadingAccount] = React.useState<boolean>(false);
     const [loadingMultiSig, setLoadingMultiSig] = React.useState<boolean>(false);
 
-    const { isConnected : connectedS, actor : actorS, principal : principalS } = useStoic();
-    const { isConnected : connectedP, actor : actorP, principal : principalP } = usePlug();
+    const { isConnected : connectedS, principal : principalS, agent : agentS } = useStoic();
+    const { isConnected : connectedP, principal : principalP, agent : agentP } = usePlug();
+
+    const actorS = React.useMemo(() => agentS ? createAccountsActor(agentS, AccountsPrincipal) : undefined, [agentS]);
+    const actorP = React.useMemo(() => agentP ? createAccountsActor(agentP, AccountsPrincipal) : undefined, [agentP]);
 
     function disconnect () {
         setAccount(undefined);

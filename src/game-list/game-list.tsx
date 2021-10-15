@@ -1,6 +1,6 @@
 import { HttpAgent } from '@dfinity/agent';
 import { Principal } from '@dfinity/principal';
-import { createActor, GamePrincipal } from '@metascore/query';
+import { createMetascoreActor, GamePrincipal } from '@metascore/query';
 import Loader from 'components/loader/loader';
 import { useAccount } from 'context/account';
 import { useEnv } from 'context/env';
@@ -35,23 +35,23 @@ export function Game ({ title, gamep, } : GameProps) {
         const agent = new HttpAgent({
             host: metascoreHost,
         });
-        return createActor(agent, metascorePrincipal);
+        return createMetascoreActor(agent, metascorePrincipal);
     }, []);
 
     const active = principal === gamep.toString() ? Styles.active : 'inactive';
     
-    React.useEffect(() => {
-        if (account) {
-            setLoading(true);
-            metascore.getMetascore(gamep, account.id)
-            .then((r) => setScore(Number(r)))
-            .catch(console.error)
-            .finally(() => setLoading(false));
-        } else {
-            setLoading(false);
-            setScore(undefined);
-        }
-    }, [account, gamep]);
+    // React.useEffect(() => {
+    //     if (account) {
+    //         setLoading(true);
+    //         metascore.getMetascore(gamep, account.id)
+    //         .then((r) => setScore(Number(r)))
+    //         .catch(console.error)
+    //         .finally(() => setLoading(false));
+    //     } else {
+    //         setLoading(false);
+    //         setScore(undefined);
+    //     }
+    // }, [account, gamep]);
     
     return <div className={[
         Styles.game,
