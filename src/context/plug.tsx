@@ -3,6 +3,7 @@ import { ActorSubclass, HttpAgent } from '@dfinity/agent';
 import { Principal } from '@dfinity/principal';
 import { MetascoreQuery, createMetascoreActor } from '@metascore/query';
 import { useEnv } from './env';
+import { AccountsPrincipal, AccountsPrincipalLocal } from './account';
 
 
 interface PlugState {
@@ -30,7 +31,8 @@ export const usePlug = () => React.useContext(PlugContext);
 export default function PlugProvider({ children }: PlugProviderProps) {
 
     const { metascorePrincipal, metascoreHost, isLocal } = useEnv();
-    const whitelist = [metascorePrincipal];
+
+    const whitelist = [metascorePrincipal, isLocal ? AccountsPrincipalLocal : AccountsPrincipal];
     const host = metascoreHost;
 
     const [isConnected, setIsConnected] = React.useState<boolean>(DefaultState.isConnected);
@@ -45,7 +47,7 @@ export default function PlugProvider({ children }: PlugProviderProps) {
             return;
         }
         
-        switch (await window.ic.plug.requestConnect({ whitelist, host })) {
+        switch (await window.ic.plug.requestConnect({ whitelist: whitelist.filter(x => x !== undefined) as string[], host })) {
             case true:
                 initActor();
                 break
@@ -77,7 +79,7 @@ export default function PlugProvider({ children }: PlugProviderProps) {
         if (window?.ic?.plug === undefined) return false;
         if (!isConnected) return;
         if (!window.ic.plug.agent) {
-            await window.ic.plug.createAgent({ whitelist, host })
+            await window.ic.plug.createAgent({ whitelist: whitelist.filter(x => x !== undefined) as string[], host })
         };
         return true;
     };

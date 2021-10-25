@@ -14,7 +14,7 @@ interface ContextProviderProps {
 
 const defaultState: EnvState = {
     metascorePrincipal: window.location.host.includes('localhost')
-    ? 'rrkah-fqaaa-aaaaa-aaaaq-cai'
+    ? 'r7inp-6aaaa-aaaaa-aaabq-cai'
     : window.location.host.includes('t6ury')
         ? PRODUCTION_PRINCIPAL
         : STAGING_PRINCIPAL,
@@ -32,6 +32,10 @@ export default function EnvProvider({ children }: ContextProviderProps) {
     const metascorePrincipal = defaultState.metascorePrincipal;
     const metascoreHost = defaultState.metascoreHost;
     const isLocal = window.location.host.includes('localhost');
+
+    React.useEffect(() => {
+        console.info(`Running in ${isLocal ? 'LOCAL' : 'PROD'} env. Host: ${metascoreHost}, Principal: ${metascorePrincipal}`);
+    }, []);
 
     return <envContext.Provider
         value={{

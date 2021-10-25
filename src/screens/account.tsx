@@ -2,6 +2,7 @@ import { createAccountsActor, ACCOUNTS_PRINCIPAL } from '@metascore/query';
 import { Account } from '@metascore/query/generated/metascore.did';
 import Button from 'components/button/button';
 import Grid, { GridRow } from 'components/grid/grid';
+import Loader from 'components/loader/loader';
 import Panel from 'components/panel/panel';
 import { useAccount } from 'context/account';
 import { usePlug } from 'context/plug';
@@ -14,9 +15,9 @@ export default function AccountScreen() {
 
     const { agent : agentS, isConnected: isConnectedS, principal: principalS, disconnect: disconnectS, connect: connectS } = useStoic();
     const { agent : agentP, isConnected: isConnectedP, principal: principalP, disconnect: disconnectP, connect: connectP } = usePlug();
-    const actorS = React.useMemo(() => agentS ? createAccountsActor(agentS, ACCOUNTS_PRINCIPAL) : undefined, [agentS]);
-    const actorP = React.useMemo(() => agentP ? createAccountsActor(agentP, ACCOUNTS_PRINCIPAL) : undefined, [agentP]);
-    const { account, disconnect: disconnectA, loading : loadingA, setAccount : setAccountA } = useAccount();
+    const { account, disconnect: disconnectA, loadingAccount, loadingMultisig, setAccount : setAccountA, accountsCanister, accountLinkResponse } = useAccount();
+    const actorS = React.useMemo(() => agentS ? createAccountsActor(agentS, accountsCanister || ACCOUNTS_PRINCIPAL) : undefined, [agentS, accountsCanister]);
+    const actorP = React.useMemo(() => agentP ? createAccountsActor(agentP, accountsCanister || ACCOUNTS_PRINCIPAL) : undefined, [agentP, accountsCanister]);
 
     const [alias, setAlias] = React.useState(account?.alias);
     const [avatar, setAvatar] = React.useState(account?.avatar);
@@ -93,12 +94,27 @@ export default function AccountScreen() {
                     </div>
                     <hr />
                     <h2>Plug</h2>
-                    <small><em>Plug is temporarily disabled.</em></small>
-                    {/* {principalP ? principalP.toText() : <Button onClick={() => connect('plug')}>
+                    {/* <small><em>Plug is temporarily disabled.</em></small> */}
+                    {principalP ? principalP.toText() : <Button onClick={() => connect('plug')}>
                         Connect Plug
-                    </Button>} */}
+                    </Button>}
+                    <hr />
+                    <div style={{display: 'flex', gap: '10px'}}>
+                    {
+                        loadingMultisig && <>  
+                            <Loader />
+                            Linking wallets...&nbsp;
+                        </>
+                    }
+                    {
+                        accountLinkResponse && <>
+                            {accountLinkResponse}
+                        </>
+                    }
+                    </div>
+                    
                 </Panel>
-                <Panel loading={loadingA?.account || loading}>
+                <Panel loading={loadingAccount || loading}>
                     <h1>Account</h1>
                     <hr />
                     {editing && account
@@ -108,7 +124,7 @@ export default function AccountScreen() {
                             cancel={cancelEdit}
                         />
                         : <AccountView
-                            account={Object.assign({}, account, {alias, avatar, flavorText, primaryWallet})}
+                            account={account ? Object.assign({}, account, {alias, avatar, flavorText, primaryWallet}) : undefined}
                             edit={() => setEditing(true)}
                         />
                     }
@@ -126,7 +142,7 @@ function AccountView({account, edit}: {account?: Account, edit: () => void}) {
                 <h3>Avatar</h3>
                 <img
                     src={
-                        account?.avatar
+                        account?.avatar && account.avatar[0]
                         ? account?.avatar[0]
                         : `https://generative-placeholders.glitch.me/image?width=100&height=100&style=cellular-automata&cells=10`
                     }
@@ -144,7 +160,7 @@ function AccountView({account, edit}: {account?: Account, edit: () => void}) {
             </div>
             <div>
                 <h3>Primary Wallet</h3>
-                {account ? account.primaryWallet?.hasOwnProperty('stoic') ? 'Stoic' : 'Plug' : ''}</div>
+                {account ? account.primaryWallet?.hasOwnProperty('stoic') ? 'Stoic' : 'Plug' : '-'}</div>
             <div>
                 <h3>Linked Plug Wallet</h3>
                 {account?.plugAddress && account.plugAddress.length
