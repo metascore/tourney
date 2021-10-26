@@ -61,7 +61,7 @@ function Connect () {
 };
 
 function Account () {
-    const { account, loading } = useAccount();
+    const { account, loadingAccount } = useAccount();
     const { isConnected : isConnectedS, principal : principalS } = useStoic();
     const { isConnected : isConnectedP, principal : principalP } = usePlug();
     
@@ -80,7 +80,7 @@ function Account () {
     return (
         <Link to='/account'>
             <Button>
-                {loading?.account
+                {loadingAccount
                     ? <div style={{marginRight: '5px'}}><Loader /></div>
                     : <img src={
                         account?.avatar[0]

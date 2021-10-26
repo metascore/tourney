@@ -1,5 +1,5 @@
 import { createAccountsActor, ACCOUNTS_PRINCIPAL } from '@metascore/query';
-import { Account } from '@metascore/query/generated/metascore.did';
+import { Account } from '@metascore/query/generated/accounts/accounts.did';
 import Button from 'components/button/button';
 import Grid, { GridRow } from 'components/grid/grid';
 import Loader from 'components/loader/loader';
@@ -65,6 +65,7 @@ export default function AccountScreen() {
                 avatar: account.avatar,
                 flavorText: account.flavorText,
                 primaryWallet: account.primaryWallet ? [account.primaryWallet] : [],
+                discord: account.discord,
             })
             .finally(() => setLoading(false));
         };
@@ -159,6 +160,10 @@ function AccountView({account, edit}: {account?: Account, edit: () => void}) {
                 <div>{account?.flavorText || '-'}</div>
             </div>
             <div>
+                <h3>Discord Username</h3>
+                <div>{account?.discord || '-'}</div>
+            </div>
+            <div>
                 <h3>Primary Wallet</h3>
                 {account ? account.primaryWallet?.hasOwnProperty('stoic') ? 'Stoic' : 'Plug' : '-'}</div>
             <div>
@@ -192,6 +197,7 @@ function AccountEdit({
     const [alias, setAlias] = React.useState<string>(account?.alias[0] || '');
     const [avatar, setAvatar] = React.useState<string>(account?.avatar[0] || '');
     const [flavorText, setFlavorText] = React.useState<string>(account?.flavorText[0] || '');
+    const [discord, setDiscord] = React.useState<string>(account?.discord[0] || '');
 
     function save () {
         update({
@@ -199,6 +205,7 @@ function AccountEdit({
             alias: [alias],
             avatar: [avatar],
             flavorText: [flavorText],
+            discord: [discord],
             primaryWallet: account.primaryWallet,
             stoicAddress: account.stoicAddress,
             plugAddress: account.plugAddress,
@@ -230,6 +237,14 @@ function AccountEdit({
                     type="text"
                     value={flavorText}
                     onChange={(e) => setFlavorText(e.currentTarget.value)}
+                />
+            </div>
+            <div>
+                <h3>Discord Username</h3>
+                <input
+                    type="text"
+                    value={discord}
+                    onChange={(e) => setDiscord(e.currentTarget.value)}
                 />
             </div>
             <div style={{display: 'flex', gap: '10px'}}>

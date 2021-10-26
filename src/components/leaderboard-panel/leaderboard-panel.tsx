@@ -10,7 +10,7 @@ import Button from 'components/button/button';
 import { createMetascoreActor } from '@metascore/query';
 import { HttpAgent } from '@dfinity/agent';
 import { useEnv } from 'context/env';
-import { DetailedScore } from '@metascore/query/generated/metascore.did';
+import { DetailedScore } from '@metascore/query/generated/metascore/metascore.did';
 
 interface Props {
     children?: React.ReactNode;

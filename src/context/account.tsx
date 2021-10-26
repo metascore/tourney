@@ -1,7 +1,7 @@
 import React from 'react';
 import { useStoic } from './stoic';
 import { usePlug } from './plug';
-import { Account, AuthenticationRequest } from '@metascore/query/generated/metascore.did';
+import { Account, AuthenticationRequest } from '@metascore/query/generated/accounts/accounts.did';
 import { createAccountsActor } from '@metascore/query';
 import { useEnv } from './env';
 

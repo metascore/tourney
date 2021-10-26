@@ -2,7 +2,7 @@ import React from 'react';
 import { useStoic } from './stoic';
 import { usePlug } from './plug';
 import { Player, Score } from '@metascore/query';
-import { Score__1 } from '@metascore/query/generated/metascore.did';
+import { Score__1 } from '@metascore/query/generated/metascore/metascore.did';
 import { useAccount } from './account';
 
 const tierPercentiles = {
