@@ -6,7 +6,7 @@ import { createAccountsActor } from '@metascore/query';
 import { useEnv } from './env';
 
 export const AccountsPrincipal = 'upsxs-oyaaa-aaaah-qcaua-cai';
-export const AccountsPrincipalLocal = 'rrkah-fqaaa-aaaaa-aaaaq-cai';
+export const AccountsPrincipalLocal = 'ryjl3-tyaaa-aaaaa-aaaba-cai';
 
 
 interface AccountState {

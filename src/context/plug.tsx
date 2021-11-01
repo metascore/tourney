@@ -41,23 +41,21 @@ export default function PlugProvider({ children }: PlugProviderProps) {
     const [agent, setAgent] = React.useState<HttpAgent>();
 
     async function connect () {
+
         // If the user doesn't have plug, send them to get it!
         if (window?.ic?.plug === undefined) {
             window.open('https://plugwallet.ooo/', '_blank');
             return;
         }
         
-        switch (await window.ic.plug.requestConnect({ whitelist: whitelist.filter(x => x !== undefined) as string[], host })) {
-            case true:
-                initActor();
-                break
-            case false:
-                console.error('Error connecting plug...');
-                setIsConnected(false);
-                setPrincipal(undefined);
-                setActor(undefined);
-                break;
-        }
+        window.ic.plug.requestConnect({ whitelist: whitelist.filter(x => x !== undefined) as string[], host })
+        .then(initActor)
+        .catch(() => {
+            console.error('Error connecting plug...');
+            setIsConnected(false);
+            setPrincipal(undefined);
+            setActor(undefined);
+        });
     };
 
     async function disconnect () {
@@ -156,7 +154,7 @@ declare global {
                         };
                     };
                 }) => Promise<{ height: number }>;
-                requestConnect: (opts: any) => Promise<boolean>;
+                requestConnect: (opts: any) => Promise<{}>;
                 deleteAgent: () => Promise<void>;
             };
         };
